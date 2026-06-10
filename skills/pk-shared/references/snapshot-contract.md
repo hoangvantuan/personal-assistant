@@ -1,0 +1,77 @@
+# Preload Contract: Context Snapshot duy nhất
+
+Canonical. Định nghĩa context snapshot MỌI skill pk-* đều đọc ở đầu flow. Maintain 1 chỗ duy nhất.
+
+**Vấn đề giải quyết**: khi gọi skill lẻ (`/pk-track`, `/pk-plan`...) KHÔNG qua `pk-harness`, skill thiếu snapshot mà orchestrator đáng lẽ làm. Contract bảo đảm: mọi entry point đều nạp đủ nền.
+
+## Nguyên tắc idempotent (không đọc trùng)
+
+Chỉ nạp cái **chưa có** trong context.
+
+- Chạy QUA `pk-harness`: orchestrator Phase 1 đã snapshot. Skill KHÔNG đọc lại.
+- Chạy LẺ (không qua harness): skill tự nạp phần thiếu, một lần, ở đầu flow.
+
+Trước khi nạp: kiểm tra `.cockpit/` tồn tại. Không có → route `pk-init` (không nạp gì thêm).
+
+## Context Snapshot (1 bản duy nhất)
+
+**Bước 0 (bắt buộc):** `ls -1 .cockpit/` (cấp 1, KHÔNG đệ quy). Phát hiện cấu trúc + anomalies.
+
+| Nguồn | Độ sâu nạp | Dùng để |
+| --- | --- | --- |
+| `objective.md` | Frontmatter: `type`, `status`, `period`, KR/KI IDs, constraints tóm tắt | Route, chọn metrics, guard paused |
+| `tools.md` | **TOÀN BỘ body** | Inventory công cụ, auto-load concept pages khi match |
+| `plan.md` | Frontmatter + counters | Có/không plan, done rate |
+| `actions/*.md` | Scan frontmatter | Count by status, active IDs |
+| `inbox/*.md` | Scan frontmatter `status: pending` | Count by domain |
+| `knowledge/index.md` | **TOÀN BỘ** | Registry tri thức + usage count |
+| `skills/registry.md` | **TOÀN BỘ** | Registry skills |
+| `workflows/registry.md` | **TOÀN BỘ** | Registry workflows |
+| Pinned pages | **Full body** | Pages có `pinned: true` trong frontmatter |
+
+## KHÔNG preload (on-demand)
+
+| Nguồn | Ai đọc, khi nào |
+| --- | --- |
+| `objective.md` body (bảng KR/KI) | `pk-analyze` khi tính metrics |
+| `plan.md` body (Roadmap) | `pk-track` re-render, `pk-plan` update |
+| `actions/*.md` body | `pk-track` khi update |
+| `knowledge/*.md` body | `pk-consult` khi query, `pk-distill` khi xử lý |
+| `skills/*.md` body | `pk-consult` mode run |
+| `workflows/*.md` body | `pk-consult` mode run |
+| `log/**` | `pk-track` deep, `pk-analyze` deep |
+| `archive/**` | `pk-lint` restore, `pk-analyze` audit |
+| `raw/**` | `pk-capture` provenance |
+
+## Áp dụng tri thức (không chỉ load cho có)
+
+`knowledge/index.md` đã nạp → dùng làm **context định hướng**. Trước khi đề xuất/ghi: đối chiếu knowledge page có nội dung liên quan việc đang làm. Cần detail → đọc body page tương ứng.
+
+## Auto-load concept pages từ tools.md
+
+Khi skill phát hiện keyword match giữa task hiện tại và tool/concept trong snapshot → tự load concept page chi tiết từ `knowledge/`. An toàn vì read-only.
+
+## Reachability khi ghi (chống file mồ côi)
+
+Mọi file trong `.cockpit/` phải reachable từ SOT:
+
+| Loại file | Neo vào |
+| --- | --- |
+| Action | `actions/` + Roadmap link trong `plan.md` |
+| Knowledge page | `knowledge/index.md` entry |
+| Skill | `skills/registry.md` entry |
+| Workflow | `workflows/registry.md` entry |
+| Inbox item | `inbox/` (thư mục cấu trúc) |
+| Log entry | `log/` (thư mục cấu trúc) |
+| Raw source | `raw/` (thư mục cấu trúc) |
+
+## Graceful Degradation
+
+| Tình trạng | Hành vi |
+| --- | --- |
+| Không có `.cockpit/` | pk-harness route sang pk-init |
+| Có `.cockpit/`, không có objective.md | Chỉ route sang knowledge skills. pk-plan/pk-track/pk-analyze báo "chưa có mục tiêu." |
+| Có objective.md, chưa có plan.md | pk-track báo "chưa có plan." pk-analyze chỉ hiện KR status. |
+| Có cả hai | Đầy đủ chức năng |
+
+pk-capture khi không có objective: `related_kr` và `related_action` để null, domain mặc định = knowledge.
