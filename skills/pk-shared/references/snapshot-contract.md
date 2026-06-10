@@ -47,6 +47,8 @@ Trước khi nạp: kiểm tra `.cockpit/` tồn tại. Không có → route `pk
 
 `knowledge/index.md` đã nạp → dùng làm **context định hướng**. Trước khi đề xuất/ghi: đối chiếu knowledge page có nội dung liên quan việc đang làm. Cần detail → đọc body page tương ứng.
 
+**Trước khi hỏi user bất kỳ thông tin gì**, kiểm tra snapshot đã nạp (tools.md, knowledge/, objective.md). Dữ liệu có trong cockpit thì dùng, không hỏi.
+
 ## Auto-load concept pages từ tools.md
 
 Khi skill phát hiện keyword match giữa task hiện tại và tool/concept trong snapshot → tự load concept page chi tiết từ `knowledge/`. An toàn vì read-only.

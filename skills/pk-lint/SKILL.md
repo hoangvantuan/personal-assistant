@@ -16,9 +16,9 @@ description: "Rà soát sức khoẻ hệ thống .cockpit/. 3 mode: check (heal
 - skills/registry.md, workflows/registry.md: tương tự.
 
 **2. Link integrity**
-- Tìm `[[...]]` trong body pages
-- Resolve: tìm file `{type}-{slug}.md` trong knowledge/, skills/, workflows/
-- Link hỏng → báo
+- Quét mọi cross-reference nội bộ cockpit: `[[slug]]`, `[text](path)`, frontmatter `related`, `source_file`
+- Resolve: tìm file `{type}-{slug}.md` trong knowledge/, skills/, workflows/. Kiểm tra path đích tồn tại.
+- Link hỏng → báo cụ thể (file nguồn, dòng, link hỏng, lý do)
 
 **3. Frontmatter check**
 - Mọi page: `type`, `title`, `status`, `updated`

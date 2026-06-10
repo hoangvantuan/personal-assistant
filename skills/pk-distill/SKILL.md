@@ -130,3 +130,5 @@ Wiki → Skill promote:
 3. Không xoá inbox chưa duyệt.
 4. Giữ tất cả thông tin có giá trị khi gộp.
 5. Archive, không hard delete.
+6. **Tách monolithic**: Khi page > 150 dòng hoặc chứa > 3 chủ đề không liên quan, đề xuất tách thành nhiều page. Mỗi page 1 chủ đề, link qua `related`.
+7. **Lightweight entry cho tài liệu ngoài cockpit**: Khi tài liệu lớn nằm ở root workspace (được nhiều nơi tham chiếu), tạo concept page tóm tắt (1-2 câu) + link trỏ về file gốc. Không copy, không di chuyển.

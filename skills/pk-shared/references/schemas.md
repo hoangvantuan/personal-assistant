@@ -166,3 +166,12 @@ Naming conventions:
 - Inbox: `YYYY-MM-DD-HHmm-slug.md`
 - Knowledge: `{type}-{slug}.md`
 - Log: `YYYY-MM-DD.md`
+
+## raw/ convention
+
+`raw/` CHỈ chứa file thô chưa xử lý: drafts, inbox overflow, file chờ phân loại, nguyên văn nguồn từ pk-capture.
+
+KHÔNG thuộc raw/:
+- Template tái sử dụng → `knowledge/resource-*.md`
+- Tài liệu tham khảo → `knowledge/resource-*.md`
+- File đã phân loại xong → inbox/ hoặc knowledge/

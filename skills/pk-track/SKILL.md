@@ -128,3 +128,4 @@ Khi phát hiện action có skill/workflow liên quan (từ notes hoặc keyword
 2. KHÔNG ghi vào knowledge/skills/workflows. Gọi pk-capture nếu phát hiện tri thức.
 3. Confirm trước mọi ghi.
 4. Archive rules theo `../pk-shared/references/schemas.md`.
+5. **Verify sequence trước khi gán số thứ tự.** Khi gặp counter/sequence (buổi coaching, sprint, version, action ID), kiểm tra gap giữa records hiện có. Nếu có khoảng trống (ví dụ: B3 → B5 thiếu B4), hỏi user xác nhận trước khi gán số tiếp.
