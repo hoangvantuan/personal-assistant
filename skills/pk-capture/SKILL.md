@@ -47,7 +47,7 @@ Quét conversation history. Tìm khoảnh khắc có tín hiệu knowhow hoặc 
 
 ### 2. Từ nguồn ngoài
 
-User cung cấp file/link. Đọc, áp dụng cùng tiêu chí.
+User cung cấp file/link. Đọc, áp dụng cùng tiêu chí. Nguồn lớn (>500 dòng hoặc >= 3 file): xem `references/batch-ingest.md`.
 
 ### 3. Từ phiên reflect
 

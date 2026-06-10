@@ -1,6 +1,6 @@
 ---
 name: pk-harness
-description: "Quản lý dự án + tri thức. Điểm vào duy nhất. Trigger: OKR, mục tiêu, dự án, kế hoạch, tracking, review, dashboard, tiến độ, inbox, capture, retro, bài học, knowledge, knowhow, tri thức, kho, distill, consult, lint."
+description: "Quản lý dự án + tri thức. Điểm vào duy nhất. Trigger: OKR, mục tiêu, dự án, kế hoạch, tracking, review, dashboard, tiến độ, inbox, capture, retro, bài học, knowledge, knowhow, tri thức, kho, distill, consult, lint, onboarding, dạy lại, lộ trình học."
 ---
 
 # PK Harness: Orchestrator (skill-only)
@@ -18,7 +18,7 @@ Entry point quản lý dự án + tri thức. Đọc state, route, chạy skill 
 | `pk-capture` | 3 | Ghi nhanh vào inbox thống nhất | Có (inbox) |
 | `pk-reflect` | 2 | Rút bài học (light/deep) | Có (qua capture) |
 | `pk-distill` | 3 | Đúc kết inbox knowledge → wiki/skills/workflows | Có (knowledge) |
-| `pk-consult` | 3 | Tham vấn tri thức (query/run) | Có (log usage) |
+| `pk-consult` | 3 | Tham vấn tri thức (query/run/teach) | Có (log usage) |
 | `pk-lint` | 3 | Rà soát, dọn dẹp, schema evolution | Có (sửa/evolve) |
 | `pk-shared` | 4 | Quy tắc chung: 6 reference files | Không (tham khảo) |
 
@@ -70,6 +70,7 @@ Pinned pages              full body
 | | "AAR / phỏng vấn sâu" | `pk-reflect` deep |
 | | "hỏi kho / tra cứu" | `pk-consult` query |
 | | "chạy skill / workflow" | `pk-consult` run |
+| | "soạn onboarding / dạy lại X / lộ trình học" | `pk-consult` teach |
 | | "distill / đúc kết" | `pk-distill` |
 | | "lint / kiểm tra / dọn dẹp" | `pk-lint` check |
 | | "sửa kho / rebuild / restore" | `pk-lint` fix |
