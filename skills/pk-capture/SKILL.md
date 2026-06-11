@@ -1,6 +1,6 @@
 ---
 name: pk-capture
-description: "Ghi nhanh vào inbox thống nhất. Phân loại domain tự động (execution vs knowledge). Trigger: capture, ghi nhanh, note, lưu lại, ghi vào inbox, nhặt knowhow, lưu bài học."
+description: "Ghi nhanh ý tưởng, bài học, task vào inbox. Tự phân loại execution hay knowledge. Dùng khi user nói 'ghi lại', 'note', 'nhớ cái này', 'lưu bài học', 'thêm vào inbox', 'ghi chú', hoặc bất kỳ lúc nào cần bắt một mẩu thông tin nhanh mà chưa cần xử lý ngay."
 ---
 
 # PK Capture: Ghi nhanh vào inbox thống nhất

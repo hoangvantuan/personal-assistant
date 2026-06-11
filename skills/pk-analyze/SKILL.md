@@ -1,6 +1,6 @@
 ---
 name: pk-analyze
-description: "Phân tích read-only: metrics, dashboard hợp nhất, phát hiện vấn đề, reachability audit. KHÔNG ghi file. Trigger: dashboard, phân tích, tình hình, metrics."
+description: "Xem tình hình dự án, đo tiến độ, phân tích vấn đề. Read-only, không sửa file. Dùng khi user hỏi 'tình hình thế nào?', muốn xem dashboard, tổng hợp metrics, hoặc chẩn đoán 'có vấn đề gì không?'. Mọi câu hỏi mang tính quan sát, đo lường, chẩn đoán về dự án đều dùng skill này."
 ---
 
 # PK Analyze: Phân tích trạng thái (read-only)

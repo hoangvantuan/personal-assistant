@@ -1,6 +1,6 @@
 ---
 name: pk-shared
-description: "Reference files dùng chung cho bộ pk-*: schemas, metrics, quality gate, cross-call rules, snapshot contract, SOT ownership. KHÔNG gọi trực tiếp."
+description: "Thư viện reference nội bộ cho bộ pk-* (schemas, metrics, quality gate). KHÔNG BAO GIỜ gọi trực tiếp. Skill này không có flow riêng. Các skill pk-* khác tự đọc file reference khi cần."
 ---
 
 # PK Shared: Reference files dùng chung

@@ -1,6 +1,6 @@
 ---
 name: pk-consult
-description: "Tham vấn tri thức. Auto-detect: cần thông tin → query (read-only), cần hành động → run (thực thi skill/workflow), cần truyền đạt → teach (soạn lộ trình đọc). Trigger: hỏi kho, tìm trong knowledge, chạy skill, áp dụng workflow, tra cứu knowhow, soạn onboarding, dạy lại X."
+description: "Tra cứu và vận dụng tri thức đã đúc kết trong .cockpit/. 3 mode: tra cứu (hỏi kho có gì về X), thực thi (chạy skill hoặc workflow đã lưu), soạn lộ trình học (onboarding, dạy lại X cho người mới). Dùng khi user muốn tìm kiến thức cũ, áp dụng quy trình đã đúc kết, hoặc soạn tài liệu hướng dẫn từ knowledge base."
 ---
 
 # PK Consult: Tham vấn tri thức

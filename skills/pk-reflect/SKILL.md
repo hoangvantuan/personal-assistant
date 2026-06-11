@@ -1,6 +1,6 @@
 ---
 name: pk-reflect
-description: "Rút bài học từ phiên hoặc sự kiện. Default: light (session extraction). Deep: phỏng vấn AAR 5 câu. Trigger: rút bài học, retro, reflect, AAR, tổng kết phiên, rút kinh nghiệm."
+description: "Rút bài học từ phiên làm việc hoặc sự kiện. Light (mặc định): quét nhanh phiên, trích bài học. Deep: phỏng vấn AAR 5 câu chuyên sâu. Dùng khi user nói 'rút bài học', 'retro', 'tổng kết phiên', 'rút kinh nghiệm', 'AAR', hoặc vừa kết thúc một giai đoạn và muốn nhìn lại. Output đi vào inbox qua pk-capture."
 ---
 
 # PK Reflect: Rút bài học

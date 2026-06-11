@@ -1,6 +1,6 @@
 ---
 name: pk-plan
-description: "Tạo/sửa plan, milestones, actions, dependencies, deadline. Trigger: tạo plan, thêm action, sửa plan, sửa action."
+description: "Tạo hoặc sửa kế hoạch hành động: plan, milestones, actions, dependencies, deadline. Dùng khi user cần lập kế hoạch, phân rã mục tiêu thành bước cụ thể, thêm/sửa/xoá action, điều chỉnh milestone. Thay đổi CẤU TRÚC kế hoạch dùng skill này. Thay đổi TIẾN ĐỘ dùng pk-track."
 ---
 
 # PK Plan: Tạo + cập nhật plan & actions

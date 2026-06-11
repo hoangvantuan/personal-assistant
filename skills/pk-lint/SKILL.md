@@ -1,6 +1,6 @@
 ---
 name: pk-lint
-description: "Rà soát sức khoẻ hệ thống .cockpit/. 3 mode: check (health check read-only), fix (sửa + rebuild index + restore), evolve (schema evolution). Trigger: lint, kiểm tra, dọn dẹp, audit, rebuild index, restore, schema review, metrics."
+description: "Kiểm tra sức khoẻ hệ thống .cockpit/: link hỏng, registry lệch, file mồ côi, schema cũ. 3 mode: check (rà soát read-only), fix (sửa + rebuild index), evolve (nâng cấp schema). Dùng khi user nói 'lint', 'kiểm tra hệ thống', 'dọn dẹp cockpit', 'audit', 'rebuild index', hoặc nghi ngờ dữ liệu cockpit bị lệch."
 ---
 
 # PK Lint: Rà soát + sửa chữa hệ thống

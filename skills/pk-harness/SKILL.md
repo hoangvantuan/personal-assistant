@@ -1,6 +1,6 @@
 ---
 name: pk-harness
-description: "Quản lý dự án + tri thức. Điểm vào duy nhất. Trigger: OKR, mục tiêu, dự án, kế hoạch, tracking, review, dashboard, tiến độ, inbox, capture, retro, bài học, knowledge, knowhow, tri thức, kho, distill, consult, lint, onboarding, dạy lại, lộ trình học."
+description: "Orchestrator cho bộ pk-*. Dùng khi yêu cầu phức hợp cần phối hợp nhiều skill (vừa plan vừa track, vừa capture vừa distill), hoặc khi không rõ nên dùng skill pk-* nào. Cũng dùng khi user muốn xem bức tranh toàn cảnh dự án, hoặc yêu cầu workflow nhiều bước liên quan .cockpit/. KHÔNG dùng nếu yêu cầu rõ ràng khớp một skill pk-* cụ thể."
 ---
 
 # PK Harness: Orchestrator (skill-only)
