@@ -19,7 +19,7 @@ Trước khi nạp: kiểm tra `.cockpit/` tồn tại. Không có → route `pk
 
 | Nguồn | Độ sâu nạp | Dùng để |
 | --- | --- | --- |
-| `objective.md` | Frontmatter: `type`, `status`, `period`, KR/KI IDs, constraints tóm tắt | Route, chọn metrics, guard paused |
+| `objective.md` | Frontmatter: `type`, `status`, `period`, `review_cycle`, KR/KI IDs, constraints tóm tắt | Route, chọn metrics, guard paused |
 | `tools.md` | **TOÀN BỘ body** | Inventory công cụ, auto-load concept pages khi match |
 | `plan.md` | Frontmatter + counters | Có/không plan, done rate |
 | `actions/*.md` | Scan frontmatter | Count by status, active IDs |
@@ -27,7 +27,7 @@ Trước khi nạp: kiểm tra `.cockpit/` tồn tại. Không có → route `pk
 | `knowledge/index.md` | **TOÀN BỘ** | Registry tri thức + usage count |
 | `skills/registry.md` | **TOÀN BỘ** | Registry skills |
 | `workflows/registry.md` | **TOÀN BỘ** | Registry workflows |
-| Pinned pages | **Full body** | Pages có `pinned: true` trong frontmatter |
+| Pinned pages | **Full body** | Lấy theo cột Pinned trong `knowledge/index.md`, KHÔNG scan frontmatter từng file |
 
 ## KHÔNG preload (on-demand)
 
@@ -39,8 +39,8 @@ Trước khi nạp: kiểm tra `.cockpit/` tồn tại. Không có → route `pk
 | `knowledge/*.md` body | `pk-consult` khi query, `pk-distill` khi xử lý |
 | `skills/*.md` body | `pk-consult` mode run |
 | `workflows/*.md` body | `pk-consult` mode run |
-| `log/**` | `pk-track` deep, `pk-analyze` deep |
-| `archive/**` | `pk-lint` restore, `pk-analyze` audit |
+| `log/**` | `pk-track` deep, `pk-analyze` deep, `pk-distill` (cache usage_count) |
+| `archive/**` | `pk-lint` restore, `pk-lint` check (reachability) |
 | `raw/**` | `pk-capture` provenance |
 
 ## Áp dụng tri thức (không chỉ load cho có)
@@ -72,7 +72,7 @@ Mọi file trong `.cockpit/` phải reachable từ SOT:
 | Tình trạng | Hành vi |
 | --- | --- |
 | Không có `.cockpit/` | pk-harness route sang pk-init |
-| Có `.cockpit/`, không có objective.md | Chỉ route sang knowledge skills. pk-plan/pk-track/pk-analyze báo "chưa có mục tiêu." |
+| Có `.cockpit/`, không có objective.md | Danh sách canonical các skill vẫn chạy được: pk-capture, pk-consult, pk-distill, pk-lint, pk-reflect (light). pk-analyze chạy knowledge-only mode. pk-reflect deep degraded. pk-plan và pk-track báo "chưa có mục tiêu." |
 | Có objective.md, chưa có plan.md | pk-track báo "chưa có plan." pk-analyze chỉ hiện KR status. |
 | Có cả hai | Đầy đủ chức năng |
 

@@ -47,8 +47,7 @@ Quét theo nghiêm trọng:
 5. Checkpoint slip (effort xl)
 6. Inbox aging (> 30 ngày, phân execution vs knowledge)
 7. Capacity xung đột
-8. Knowledge health: page orphaned, index lệch, freshness thấp
-9. Reachability audit
+8. Knowledge health (mức số liệu, công thức tại `../pk-shared/references/metrics.md`): orphan count, index lệch, freshness thấp. Bất thường thì gợi ý chạy `pk-lint check`.
 
 ## Xếp priority (top N actions)
 
@@ -102,6 +101,8 @@ Bổ sung:
 
 | Param | Mặc định | Mô tả |
 | --- | --- | --- |
-| focus | full | "full", "progress", "issues", "priority", "knowledge" |
+| focus | full | "full", "progress", "issues", "priority", "knowledge", "track" |
 | max_items | 2 (dashboard), 3 (track) | Số priority items |
 | horizon_days | 3 (dashboard), 7 (track) | Cửa sổ deadline |
+
+Ghi chú: `focus=track` (tracking nhẹ) chỉ tính progress + quét issues loại 1-3. Ngữ cảnh track dùng `max_items=3`, `horizon_days=7`.

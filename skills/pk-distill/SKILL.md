@@ -10,8 +10,11 @@ description: "Đúc kết inbox thành tri thức có cấu trúc: knowledge pag
 ## Precondition
 
 1. `.cockpit/` tồn tại.
-2. `inbox/` có ít nhất 1 item `domain: knowledge`, `status: pending`.
-3. Inbox rỗng → "Không có gì để đúc kết." Dừng.
+2. Có ít nhất 1 trong 2 nguồn việc:
+   - (1) `inbox/` có item `domain: knowledge`, `status: pending`.
+   - (2) Có page đạt >= 3 phiếu `promote-candidate` trong `schema-signals.md`.
+3. Cả hai rỗng → "Không có gì để đúc kết." Dừng.
+4. Chỉ có (2) → chạy nhánh promote-only: Bước 1 → 1.5 → 4 → 5.5 → 7.
 
 ## Bảng quyết định hành động
 
@@ -36,9 +39,11 @@ description: "Đúc kết inbox thành tri thức có cấu trúc: knowledge pag
 ### Bước 1.5: Quét tín hiệu promote
 
 Đọc `schema-signals.md`, lấy dòng `promote-candidate` trong "Đang chờ xử lý".
+- Chạy cả khi inbox rỗng (nhánh promote-only)
 - Gom theo slug, đếm phiếu
 - **Ngưỡng: >= 3 phiếu cùng slug** → ứng viên promote
 - Dưới ngưỡng → để lại
+- Trình ứng viên kèm Usage từ `knowledge/index.md` làm BẰNG CHỨNG PHỤ, không phải ngưỡng
 
 ### Bước 2: Đọc inbox
 
@@ -67,7 +72,7 @@ Trình đề xuất:
 
 Phát hiện "khuôn không vừa" → ghi `schema-signals.md`:
 - `no-fit-type`: item không vừa 6 wiki types
-- `adhoc-section`: section tự chế lặp >= 2 page cùng type
+- `adhoc-section`: section ngoài format chuẩn (`../pk-shared/references/schemas.md`) VÀ ngoài `SCHEMA.md` (template đã evolve), lặp >= 2 page cùng type. Section `## Mâu thuẫn đang mở` thuộc format chuẩn, KHÔNG tính.
 
 ### Bước 4: User duyệt
 
@@ -80,15 +85,16 @@ Từng item: đồng ý / sửa / bác bỏ.
 3. **Cross-referencing**: `related: [...]` + `[[slug]]` links
 4. **Rewrite inbound link** khi GỘP/deprecate
 5. **Lifecycle metadata**: status, confidence
-6. **Cache usage_count**: đọc log, cập nhật Usage trong knowledge/index.md
+6. **Cache usage_count**: đọc log, cập nhật Usage trong knowledge/index.md (công thức: `../pk-shared/references/metrics.md`, mục "Usage count (canonical)")
 
 ### Bước 5.5: Thực thi promote (nếu được duyệt)
 
 1. Tạo skill/workflow từ wiki page nguồn
-2. Frontmatter: `promoted_from: [[slug-nguồn]]`
+2. Frontmatter theo Skill/Workflow file format (`../pk-shared/references/schemas.md`), gồm `promoted_from: [[slug-nguồn]]`
 3. Page nguồn: thêm "Đã nâng thành skill: [[slug-mới]]", giữ page (stub redirect)
 4. Cập nhật registry
 5. Cắt promote-candidate từ "Đang chờ xử lý" → "Đã xử lý"
+6. User bác bỏ → cắt phiếu: move các phiếu đó sang "Đã xử lý" kèm đánh dấu rejected. Chỉ gợi ý lại khi đủ 3 phiếu MỚI.
 
 ### Bước 6: Dọn inbox
 
@@ -103,7 +109,7 @@ timestamp: YYYY-MM-DDTHH:mm
 type: knowledge-activity
 source_skill: pk-distill
 ---
-Distill: tạo N, cập nhật M, gộp K, bỏ qua L
+Distill: tạo N, cập nhật M, gộp K, bỏ qua L, promote P
 ```
 
 ## Promote lifecycle
@@ -116,11 +122,11 @@ Phát hiện (reflect/track) → inbox/ (domain=knowledge, type=lesson)
     └── Tool capability → knowledge/pattern-*.md
 ```
 
-Wiki → Skill promote:
-1. pk-consult ghi usage vào log mỗi khi match page
-2. pk-distill cache usage_count trong knowledge/index.md
-3. usage_count >= 3 + type pattern/lesson → gợi ý promote
-4. Promote: nội dung → skills/ hoặc workflows/, page gốc thành stub redirect
+Wiki → Skill promote (pipeline promote-candidate hợp nhất):
+1. Trigger DUY NHẤT: page đạt >= 3 phiếu `promote-candidate` trong `schema-signals.md`
+2. Tiêu chí canonical: `../pk-shared/references/schemas.md`, mục "Promote criteria"
+3. `usage_count` KHÔNG phải trigger. Chỉ là bằng chứng phụ trình kèm khi duyệt.
+4. User duyệt tại Bước 5.5 → nội dung sang skills/ hoặc workflows/, page gốc thành stub redirect
 5. pk-consult tìm stub → tự redirect sang skill
 
 ## Quy tắc cứng

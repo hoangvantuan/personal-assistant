@@ -9,6 +9,8 @@ description: "Kiểm tra sức khoẻ hệ thống .cockpit/: link hỏng, regis
 
 ## Mode check (health check, read-only)
 
+Ranh giới: pk-analyze đếm số liệu tổng cho dashboard. pk-lint soi chi tiết từng file.
+
 ### Hạng mục kiểm tra
 
 **1. Registry sync**
@@ -20,7 +22,7 @@ description: "Kiểm tra sức khoẻ hệ thống .cockpit/: link hỏng, regis
 - Resolve: tìm file `{type}-{slug}.md` trong knowledge/, skills/, workflows/. Kiểm tra path đích tồn tại.
 - Link hỏng → báo cụ thể (file nguồn, dòng, link hỏng, lý do)
 
-**3. Frontmatter check**
+**3. Frontmatter check** (spec: ../pk-shared/references/schemas.md)
 - Mọi page: `type`, `title`, `status`, `updated`
 - Knowledge: thêm `confidence`
 - Skill: thêm `version`, `trigger`, `input`, `output`
@@ -28,13 +30,16 @@ description: "Kiểm tra sức khoẻ hệ thống .cockpit/: link hỏng, regis
 - Thiếu → báo cụ thể
 
 **4. Inbox backlog**
-- Tuổi theo `captured_at`. > 7 ngày → cảnh báo. Phân execution vs knowledge.
+- Tuổi theo `captured_at`, ngưỡng theo Inbox Aging trong ../pk-shared/references/schemas.md. Trong check report:
+  - 7-30 ngày → liệt kê tồn đọng
+  - > 30 ngày → cảnh báo
+- Phân execution vs knowledge.
 
 **5. Reachability audit**
 - File trong `.cockpit/` không neo vào SOT → báo mồ côi.
 
 **6. Knowledge health metrics**
-- Page count, freshness, orphans, usage distribution
+- Page count, freshness, orphans, usage distribution theo ../pk-shared/references/metrics.md, KHÔNG chép công thức
 
 ### Output
 
@@ -66,10 +71,12 @@ Trình report → user duyệt → thực thi thay đổi.
 
 ### Sub-mode: rebuild-index
 
-Sinh lại file dẫn xuất từ frontmatter:
+Sinh lại file dẫn xuất từ nguồn gốc (frontmatter + log), format theo spec ../pk-shared/references/schemas.md:
 1. Quét knowledge/*.md → sinh knowledge/index.md
 2. Quét skills/*.md → sinh skills/registry.md
 3. Quét workflows/*.md → sinh workflows/registry.md
+
+Cột Usage tái dẫn xuất từ log theo công thức ../pk-shared/references/metrics.md mục "Usage count (canonical)". Fallback: log thiếu thì giữ giá trị Usage cũ trong index. Cả frontmatter lẫn log đều thiếu thì để 0.
 
 ### Sub-mode: restore
 
@@ -97,13 +104,20 @@ Tổng hợp tín hiệu "khuôn không vừa" → đề xuất diff lên SCHEMA
 4. Sinh đề xuất diff
 5. User duyệt
 6. Migrate: bump version, rewrite link, rebuild index
+7. Move tín hiệu đã batch sang "Đã xử lý" trong schema-signals.md kèm kết quả (duyệt hoặc bác). Chạy cả khi user bác đề xuất.
 
 ### 4 loại thay đổi
 
-- Thêm page type (cụm tag >= N tín hiệu)
-- Đổi layout (type phình → subfolder)
-- Đổi format (section adhoc lặp → template)
-- Thêm mục SCHEMA (thuật ngữ lặp → glossary)
+| Thay đổi | Ngưỡng kích hoạt |
+| --- | --- |
+| Thêm page type | >= 5 tín hiệu no-fit-type cùng cụm tag |
+| Đổi layout (tách subfolder) | >= 15 page active cùng type |
+| Đổi format (template hoá section) | Section adhoc lặp >= 3 page |
+| Thêm glossary | Thuật ngữ lặp >= 3 page |
+
+Ghi chú:
+- query-miss là bằng chứng phụ, không tự kích hoạt thay đổi.
+- Dưới ngưỡng: GIỮ tín hiệu, không xoá.
 
 ## Log
 

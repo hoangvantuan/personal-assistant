@@ -17,8 +17,8 @@ Auto-detect mode dựa ngữ cảnh:
 | "hỏi kho", "kho có gì về X", "tra cứu", "tìm" | query |
 | "chạy skill", "áp dụng workflow", "làm theo" | run |
 | "soạn onboarding", "dạy lại X", "tổng hợp cho người mới", "lộ trình học" | teach |
-| Mô tả task cụ thể + có skill/workflow khớp | run |
-| Mô tả task + không có skill/workflow | query (tìm knowledge liên quan) |
+| Mô tả task + user muốn THỰC THI việc | run |
+| Mô tả task + user chỉ muốn BIẾT CÁCH làm | query |
 
 ## Mode Query
 
@@ -33,6 +33,7 @@ Auto-detect mode dựa ngữ cảnh:
 
 ### Bước 2: Tổng hợp câu trả lời
 
+- Gặp stub redirect, marker "Đã nâng thành skill: [[slug-mới]]" → đọc bản đích
 - Trả lời trực tiếp từ page
 - Trích dẫn `[[slug]]`
 - Không có → "chưa có knowhow về việc này"
@@ -45,7 +46,7 @@ Auto-detect mode dựa ngữ cảnh:
 
 **promote-candidate** khi:
 - Câu hỏi thao tác ("làm sao...", "các bước...") VÀ
-- Trả lời dựa chủ yếu vào 1 page pattern/troubleshooting
+- Trả lời dựa chủ yếu vào 1 page thuộc type đủ điều kiện promote (canonical: `../pk-shared/references/schemas.md`, mục "Promote criteria")
 
 ### Bước 4: Ghi usage log
 
@@ -65,11 +66,16 @@ Query: [câu hỏi rút gọn], match: [[slug-1]], [[slug-2]]
 
 1. Đọc skills/registry.md + workflows/registry.md
 2. Match task với cột "Khi nào dùng" (trigger) → "Mô tả" → "Tags"
-3. Đúng 1 khớp → Nhịp 2. Nhiều → hỏi user chọn. Không có → "chưa có skill/workflow"
+3. Đúng 1 khớp → Nhịp 2. Nhiều → hỏi user chọn. Không có → wiki-fallback (bước 4)
+4. Wiki-fallback: grep `knowledge/` tìm page thuộc type đủ điều kiện promote (canonical: `../pk-shared/references/schemas.md`, mục "Promote criteria")
+   - Có page → hỏi user có làm theo wiki không. Đồng ý → thực hiện như Nhịp 2 + emit promote-candidate vào `schema-signals.md`
+   - Không có page nào → báo "chưa có skill/workflow"
 
 ### Nhịp 2: Load
 
 Mở file skill/workflow. Đọc HẾT nội dung.
+
+Gặp page có marker "Đã nâng thành skill: [[slug-mới]]" (stub redirect) → đọc và dùng bản đích thay vì stub.
 
 ### Nhịp 3: Làm theo
 
@@ -140,4 +146,4 @@ Khi task match keyword trong tools.md inventory → tự load concept page liên
 2. Run KHÔNG sửa skill/workflow. Vướng → ghi usage log + gợi ý pk-distill refine.
 3. Không bịa câu trả lời / bó không tồn tại.
 4. Trích dẫn `[[slug]]` cho mọi tuyên bố từ page.
-5. Run phát hiện làm theo wiki page → emit promote-candidate.
+5. Run phát hiện làm theo wiki page → emit promote-candidate vào `schema-signals.md` (chỉ khi page thuộc type đủ điều kiện promote, canonical: `../pk-shared/references/schemas.md` mục "Promote criteria").

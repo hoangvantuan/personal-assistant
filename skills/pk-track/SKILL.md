@@ -20,15 +20,16 @@ Ghi progress fields, log, archive. KHÔNG sửa cấu trúc (delegate sang pk-in
 | File | Fields |
 | --- | --- |
 | objective.md | KR.current, KI.current |
-| plan.md | counters, last_track_date, last_review_date |
-| actions/*.md | status, `## Output/Deliverable` |
+| plan.md | counters, last_track_date, last_review_date, re-render Roadmap (view dẫn xuất, sau khi ghi actions/) |
+| actions/*.md | status, completed_date, `## Output/Deliverable` |
 | log/*.md | Append entries |
 | inbox/*.md (domain=execution) | Status transition |
 | archive/actions/ | Move done actions |
+| archive/inbox/ | Move items processed/discarded |
 
 > Subset của `../pk-shared/references/sot-ownership.md`.
 
-**KHÔNG được sửa**: Objective text, KR target, action title/deadline/deps. Đề xuất → delegate pk-init/pk-plan (pre-confirmed).
+**KHÔNG được sửa**: Objective text, KR target, action title/due_date/deps. Đề xuất → delegate pk-init/pk-plan (pre-confirmed).
 
 ## Nguyên tắc
 
@@ -43,7 +44,7 @@ Ghi progress fields, log, archive. KHÔNG sửa cấu trúc (delegate sang pk-in
 
 ### Phase 1: Snapshot + Dashboard
 
-Dùng pk-analyze (focus: progress, overdue, blocked) → thu analysis.
+Dùng pk-analyze (focus: track) → thu analysis.
 
 ### Phase 2: Tương tác update
 
@@ -64,18 +65,20 @@ Bảng thay đổi. User confirm.
 
 ### Phase 5: Xử lý inbox execution (nếu có)
 
-Đọc inbox `domain=execution`, `status=pending`. Mỗi item:
+Đọc inbox `domain=execution`, `status=pending`. Trình đề xuất, user duyệt rồi mới thực hiện. Mỗi item:
 
 | Inbox type | Xử lý |
 | --- | --- |
 | `action` | Delegate pk-plan (tạo action) |
 | `blocker` | Tự ghi (sửa action.status = blocked) |
+| `resource` | Hỏi user: link vào action notes hoặc đổi domain=knowledge |
+| `thought` | Hỏi user: chuyển thành action, đổi domain, hoặc discard |
 
-Set `status: processed` hoặc `discarded`.
+Set `status: processed` hoặc `discarded`. Move item sang `archive/inbox/`.
 
 ### Phase 6: Log + Tóm tắt
 
-Append log. Đề xuất next action. Gợi ý rút bài học nếu flow có thực chất.
+Append log. Đề xuất next action. Gợi ý rút bài học (pk-reflect) nếu flow có thực chất VÀ chạy standalone. Khi chạy qua pk-harness thì bỏ qua, harness Phase 3 đảm nhiệm.
 
 ## Flow: mode deep
 
@@ -113,8 +116,9 @@ Ghi log type=review.
 2. Cảnh báo items > 30 ngày
 3. Gợi ý xử lý per item
 4. User quyết định
-5. Xử lý (blocker tự ghi, action/resource delegate)
-6. Báo cáo
+5. Xử lý (blocker tự ghi; action và thought đã duyệt thành action: delegate pk-plan pre_confirmed; resource: hỏi user)
+6. Move item đã xử lý sang `archive/inbox/`
+7. Báo cáo
 
 ## Tích hợp: Track → Consult
 
@@ -124,7 +128,7 @@ Khi phát hiện action có skill/workflow liên quan (từ notes hoặc keyword
 
 ## Quy tắc cứng
 
-1. KHÔNG sửa cấu trúc action (title, deadline, deps). Delegate.
+1. KHÔNG sửa cấu trúc action (title, due_date, deps). Delegate.
 2. KHÔNG ghi vào knowledge/skills/workflows. Gọi pk-capture nếu phát hiện tri thức.
 3. Confirm trước mọi ghi.
 4. Archive rules theo `../pk-shared/references/schemas.md`.

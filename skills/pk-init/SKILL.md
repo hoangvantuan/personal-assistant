@@ -19,9 +19,10 @@ SOT chính: `objective.md` và `tools.md`.
 
 | File | Fields |
 | --- | --- |
-| objective.md | Objective text, KR/KI targets, period, status, constraints |
+| objective.md | Objective text, KR/KI targets, period, status, constraints, type, review_cycle |
 | tools.md | Bảng tools 4 cột |
 | SCHEMA.md | Chỉ khi mode new (tạo lần đầu) |
+| schema-signals.md | Chỉ khi mode new (tạo lần đầu) |
 
 > Subset của bảng canonical `../pk-shared/references/sot-ownership.md`.
 
@@ -50,23 +51,18 @@ Chứa quy ước dữ liệu:
 - Wiki page types (6 types: decision, pattern, concept, troubleshooting, lesson, resource)
 - Frontmatter bắt buộc theo loại file
 
+Nội dung khởi tạo sinh theo quy ước canonical: `../pk-shared/references/schemas.md`.
+
 ### Bước 3: Sinh registries rỗng
 
-- `knowledge/index.md`: bảng 7 cột (Slug, Type, Title, Tags, Status, Usage, Updated)
+- `knowledge/index.md`: bảng 8 cột (Slug, Type, Title, Tags, Status, Pinned, Usage, Updated)
 - `skills/registry.md`: bảng 6 cột (Skill, Mô tả, Khi nào dùng, Version, Tags, Cập nhật)
 - `workflows/registry.md`: bảng 7 cột (Workflow, Mô tả, Khi nào dùng, Skills dùng, Version, Tags, Cập nhật)
 - `schema-signals.md`: header + 2 section (Đang chờ xử lý / Đã xử lý)
 
 ### Bước 4: Hỏi tools
 
-Hỏi user: "Dự án dùng công cụ gì? (CLI, MCP, API, manual)". Ghi vào `tools.md`:
-
-```markdown
-# Tools
-
-| Name | Purpose | Interface | Usage |
-|------|---------|-----------|-------|
-```
+Hỏi user: "Dự án dùng công cụ gì? (CLI, MCP, API, manual)". Ghi vào `tools.md` theo format canonical tại `../pk-shared/references/schemas.md` (tools.md format).
 
 ### Bước 5: Hỏi objective (OPTIONAL)
 
@@ -74,12 +70,15 @@ Hỏi user: "Mục tiêu dự án là gì? (Bỏ qua nếu chưa sẵn sàng, ch
 
 Nếu user cung cấp:
 - Thu thập objective text + KR/KI + constraints (capacity, budget, gaps/risks)
+- Hỏi `type`: project hoặc ongoing. Nếu ongoing, hỏi tiếp `review_cycle` (đề xuất 14 ngày)
 - Ghi `objective.md`
 
 Nếu user skip:
 - Tạo `objective.md` rỗng (chỉ frontmatter `status: empty`)
 - KHÔNG tạo `plan.md`
 - Hệ thống hoạt động ở knowledge-only mode
+
+Nội dung `objective.md` sinh theo format canonical tại `../pk-shared/references/schemas.md` (Objective file format).
 
 ### Bước 6: Attach hướng dẫn vào CLAUDE.md
 

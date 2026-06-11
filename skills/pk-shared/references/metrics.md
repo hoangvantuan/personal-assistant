@@ -8,7 +8,7 @@ Công thức: `% = (Current - Baseline) / (Target - Baseline) * 100`
 
 Cập nhật Current:
 1. **User tự nhập** (ưu tiên, MỌI mode)
-2. **Tính từ actions** (CHỈ deep/closure): done/tổng thuộc KR
+2. **Tính từ actions** (CHỈ pk-track mode deep): done/tổng thuộc KR
 
 ## KR Status (auto-compute)
 
@@ -53,6 +53,8 @@ overdue = (period_overdue_days > 0) AND (objective.status == "active")
 
 Dashboard: render block cảnh báo ĐẦU (trước Key Results). Đề xuất extend hoặc đổi status. Không tự sửa.
 
+Hết period: pk-reflect rút bài học, rồi pk-init update-objective (extend period hoặc đổi status). User quyết. Không có mode đóng period riêng.
+
 ## Nhắc review (canonical)
 
 First match, 1 dòng tối đa:
@@ -86,6 +88,12 @@ First match, 1 dòng tối đa:
 - **Inbox knowledge pending**: đếm inbox domain=knowledge, status=pending
 - **Page freshness**: % page active có `updated` < 90 ngày
 - **Orphaned files**: file trong knowledge/ không có trong index.md
+
+Ranh giới: số liệu mức dashboard thuộc pk-analyze. Soi chi tiết từng file thuộc pk-lint check.
+
+### Usage count (canonical)
+
+Cách đếm usage cho mỗi page: đếm entry usage log của pk-consult trong `log/*.md` theo slug. Tính cả dạng `match: [[slug]]` lẫn `Run: [[slug]]`. pk-distill (cache vào index) và pk-lint (rebuild-index) dùng chung công thức này.
 
 ## Capacity / xung đột tài nguyên
 

@@ -13,14 +13,14 @@ SOT chính: `plan.md` và `actions/`.
 | --- | --- | --- |
 | `new` | Chưa có plan.md | Tạo plan + milestones + actions |
 | `update` | Sửa plan/action/milestone | Cập nhật cấu trúc |
-| `pre-confirmed` | Áp dụng thay đổi từ pk-track deep | Delegate protocol |
+| `pre-confirmed` | Áp dụng thay đổi đã duyệt từ pk-track | Delegate protocol |
 
 ## SOT quyền ghi
 
 | File | Fields |
 | --- | --- |
-| plan.md | Milestones, counters (khi tạo) |
-| actions/*.md | title, deadline, deps, effort, priority, DoD, notes |
+| plan.md | Milestones, counters (khi tạo), re-render Roadmap (view dẫn xuất) |
+| actions/*.md | title, due_date, deps, effort, priority, DoD, notes |
 
 > Subset của `../pk-shared/references/sot-ownership.md`.
 
@@ -70,7 +70,7 @@ Thực hiện:
 
 ## Flow: mode pre-confirmed
 
-Nhận payload từ pk-track deep (`../pk-shared/references/cross-call-rules.md` delegate protocol):
+Nhận payload từ pk-track (mọi mode, user đã duyệt trong flow track). Theo delegate protocol tại `../pk-shared/references/cross-call-rules.md`:
 1. Hiển thị block lý do + diff
 2. Ghi ngay (skip confirm)
 3. Kèm `(Đã được confirm tại track. Ghi ngay.)`

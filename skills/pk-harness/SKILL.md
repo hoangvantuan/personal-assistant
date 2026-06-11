@@ -56,7 +56,7 @@ Pinned pages              full body
 | State | User intent | Chạy skill |
 | --- | --- | --- |
 | Chưa có .cockpit/ | Bất kỳ | `pk-init` new |
-| Có .cockpit/, không objective | Mặc định | `pk-consult` / `pk-distill` / `pk-lint` (knowledge-only) |
+| Có .cockpit/, không objective | Mặc định | `pk-capture` / `pk-consult` / `pk-distill` / `pk-lint` / `pk-reflect` (light) / `pk-analyze` (knowledge-only). Danh sách canonical: `../pk-shared/references/snapshot-contract.md` (Graceful Degradation) |
 | Có objective, chưa plan | Mặc định | `pk-plan` new |
 | Có objective + plan | **Mặc định / "hôm nay"** | `pk-analyze` (dashboard) |
 | | "sửa mục tiêu / KR / KI / constraints" | `pk-init` update-objective |
@@ -98,7 +98,7 @@ User nói "inbox" / "xử lý inbox":
 
 ### Track light
 
-1. `pk-analyze` (focus: progress, overdue, blocked) → analysis
+1. `pk-analyze` (focus: track) → analysis
 2. `pk-track` light, dùng analysis
 
 ### Deep review (chuỗi tuần tự inline)
@@ -123,7 +123,7 @@ User nói "inbox" / "xử lý inbox":
 | Lỗi | Xử lý |
 | --- | --- |
 | `.cockpit/` không tồn tại | Route pk-init new |
-| objective.md rỗng (knowledge-only) | Chỉ route knowledge skills |
+| objective.md rỗng (knowledge-only) | Chỉ route knowledge skills + pk-analyze knowledge-only (danh sách canonical: snapshot-contract.md, Graceful Degradation) |
 | File corrupt | Báo cụ thể file, đề xuất sửa |
 | Skill flow lỗi giữa chừng | Báo bước lỗi, giữ thay đổi đã ghi |
 

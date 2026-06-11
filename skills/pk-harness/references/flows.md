@@ -25,7 +25,7 @@ sequenceDiagram
     participant H as Harness (1 agent)
 
     U->>H: "track" / "cập nhật"
-    H->>H: → pk-analyze (focus: progress, overdue, blocked)
+    H->>H: → pk-analyze (focus: track)
     H->>H: → pk-track light, dùng analysis
     H->>U: Dashboard + hỏi: KR? Action status?
     U->>H: Updates

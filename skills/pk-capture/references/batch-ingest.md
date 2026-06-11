@@ -9,7 +9,7 @@ Reference cho pk-capture chế độ "Từ nguồn ngoài" khi nguồn vượt c
 
 ## Bất biến giữ nguyên
 
-Batch KHÔNG phá bất biến nào: vẫn chỉ ghi `inbox/`, vẫn user duyệt trước khi ghi. Khác biệt duy nhất: đọc cuốn chiếu và duyệt theo nhóm.
+Batch KHÔNG phá bất biến nào: vẫn chỉ ghi `inbox/`, `raw/` và append `log/`, vẫn user duyệt trước khi ghi. Khác biệt duy nhất: đọc cuốn chiếu và duyệt theo nhóm.
 
 ## Bước 1: Lưu raw TRƯỚC khi đọc
 
@@ -19,10 +19,12 @@ Copy nguyên văn nguồn vào `raw/YYYY-MM-DD-<slug-nguồn>.md`. Một file ng
 
 | Nguồn | Ưu tiên tìm | Bỏ qua |
 |---|---|---|
-| Meeting transcript | decision, concept, lesson | action item thuần, small talk |
+| Meeting transcript | decision, concept, lesson, action, blocker | action item của người khác hoặc đã chốt xong, small talk |
 | Chat / Slack export | troubleshooting, pattern, decision | tin điều phối, link không ngữ cảnh |
 | Issue / PR / postmortem | troubleshooting, lesson, decision | diễn biến comment |
 | Tài liệu / báo cáo | concept, pattern, decision | số liệu chỉ đúng một thời điểm |
+
+Bắt action/blocker áp dụng cho MỌI nguồn, kể cả Chat/Slack. Chỉ bắt item thuộc về user và còn hiệu lực.
 
 ## Bước 3: Đọc cuốn chiếu, gom xong mới trình
 
@@ -33,8 +35,9 @@ Copy nguyên văn nguồn vào `raw/YYYY-MM-DD-<slug-nguồn>.md`. Một file ng
 ## Bước 4: Trình duyệt theo nhóm
 
 - Nhóm theo type, mỗi nhóm tối đa ~10 item.
+- Nhóm action/blocker trình đầu tiên.
 - User thao tác theo nhóm: "giữ cả nhóm", "bỏ cả nhóm", "giữ trừ item N".
-- Trên 30 candidates: trình đợt 1 gồm loại giá trị cao (decision, lesson, troubleshooting), hỏi user có xem tiếp đợt 2 (concept, pattern, candidate-skill/workflow) không.
+- Trên 30 candidates: trình đợt 1 gồm loại giá trị cao (action, blocker, decision, lesson, troubleshooting), hỏi user có xem tiếp đợt 2 (concept, pattern, candidate-skill/workflow) không.
 
 ## Bước 5: Ghi inbox + log
 

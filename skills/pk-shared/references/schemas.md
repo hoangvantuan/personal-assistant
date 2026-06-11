@@ -1,6 +1,6 @@
 # Shared Schemas
 
-Schema dùng chung giữa nhiều skill. Canonical duy nhất.
+Schema dùng chung giữa nhiều skill. File này là bản canonical duy nhất. SKILL.md các skill chỉ trích subset liên quan. Khi subset lệch file này thì file này thắng. Sửa file này trước, subset theo sau.
 
 ## Inbox item thống nhất
 
@@ -28,6 +28,74 @@ status: pending|processed|discarded
 
 pk-capture tách ngay lúc tạo thành 2 items riêng biệt, link nhau qua `related_inbox`. Item execution focus vào action/status. Item knowledge focus vào nội dung tri thức.
 
+## Objective file format
+
+SOT của pk-init. Frontmatter KHÔNG chứa `last_track_date` / `last_review_date` (2 field này thuộc `plan.md`).
+
+```markdown
+---
+type: project|ongoing
+status: empty|active|paused
+period: "YYYY-MM-DD → YYYY-MM-DD"
+review_cycle: 14
+constraints: "capacity, budget, gaps/risks tóm tắt"
+---
+
+## Mục tiêu
+(1-2 câu objective text.)
+
+## Key Results
+
+| ID | Mô tả | Baseline | Target | Current | Status |
+|----|-------|----------|--------|---------|--------|
+
+## Key Indicators
+
+| ID | Mô tả | Ngưỡng | Current | Status |
+|----|-------|--------|---------|--------|
+```
+
+- `type`: bỏ trống khi `status: empty` (knowledge-only mode).
+- `review_cycle`: chỉ type ongoing. Đơn vị ngày, đề xuất mặc định 14.
+- KR/KI Status: auto-compute theo `metrics.md`.
+
+## tools.md format
+
+SOT của pk-init. Snapshot preload TOÀN BỘ body.
+
+```markdown
+# Tools
+
+| Name | Purpose | Interface | Usage |
+|------|---------|-----------|-------|
+```
+
+`Interface`: CLI, MCP, API, hoặc manual. Keyword match với tool → auto-load concept page liên quan (xem `snapshot-contract.md`).
+
+## plan.md format
+
+pk-plan tạo milestones + Roadmap. pk-track ghi counters, `last_track_date`, `last_review_date`.
+
+```markdown
+---
+counters:
+  total_actions: 12
+  completed: 4
+last_track_date: YYYY-MM-DD | null
+last_review_date: YYYY-MM-DD | null
+---
+
+## Milestones
+
+| ID | Tên | Target |
+|----|-----|--------|
+| M1 | Research | 2026-05-20 |
+
+## Roadmap
+
+(Khối render theo Roadmap format bên dưới. Bảng dẫn xuất từ actions/.)
+```
+
 ## Roadmap format
 
 Mỗi milestone heading chứa bảng action:
@@ -44,6 +112,10 @@ Mỗi milestone heading chứa bảng action:
 
 Cột: ID (link), Task, Deadline, Priority, Notes. Sắp theo Priority → Deadline. Chỉ hiện action chưa done.
 
+Roadmap là bảng dẫn xuất từ `actions/`, không phải SOT. Không sửa tay từng dòng. pk-plan và pk-track re-render sau khi ghi `actions/`.
+
+Cột Deadline render từ field `due_date`.
+
 ## Action file format
 
 Naming: `AXXX-slug.md`. Frontmatter:
@@ -57,10 +129,15 @@ milestone: M1 | null
 status: pending|doing|blocked|done
 priority: critical|high|medium|low
 due_date: YYYY-MM-DD
+completed_date: YYYY-MM-DD | null
+deps: [A002]
 effort: s|m|l|xl
 notes: "..."
 ---
 ```
+
+- `deps`: danh sách action ID phụ thuộc. Mặc định rỗng `[]`.
+- `completed_date`: set khi done (xem Archive Rules). Chưa done thì `null`.
 
 Body: `## DoD`, `## Output/Deliverable`, `## Checkpoints` (effort xl).
 
@@ -72,13 +149,15 @@ Mỗi ngày 1 file: `log/YYYY-MM-DD.md`. Mỗi entry:
 ---
 timestamp: 2026-06-10T14:30
 type: tracking|review|knowledge-activity
-source_skill: pk-track|pk-consult|pk-distill|pk-lint
+source_skill: pk-track|pk-consult|pk-capture|pk-distill|pk-lint
 ---
 ```
 
 - `tracking`: cập nhật KR/action
 - `review`: deep review, root cause
-- `knowledge-activity`: create/update page, query, run skill, lint fix
+- `knowledge-activity`: capture items, create/update page, query, run skill, lint fix
+
+pk-init và pk-plan KHÔNG ghi log. Chủ ý: output của chúng tự là SOT. Enum `source_skill` phải đồng bộ với hàng `log/` trong `sot-ownership.md`.
 
 ## Knowledge page format
 
@@ -114,14 +193,59 @@ updated: YYYY-MM-DD
 
 Lesson bổ sung: `## Kỳ vọng vs Thực tế`, `## Nguyên nhân gốc`, `## Hành động hệ thống`.
 
+Mọi type có thể có section optional `## Mâu thuẫn đang mở`. Section này thuộc format chuẩn, KHÔNG tính là adhoc-section. Gỡ khi mâu thuẫn được giải quyết.
+
+## Promote criteria
+
+Cơ chế nâng wiki page thành skill/workflow:
+
+- Trigger DUY NHẤT: page đạt >= 3 phiếu `promote-candidate` trong `schema-signals.md`.
+- `usage_count` KHÔNG phải trigger. Chỉ là bằng chứng phụ trình kèm khi duyệt.
+- Type đủ điều kiện promote: `pattern`, `troubleshooting`, `lesson` (lesson chỉ khi mô tả quy trình lặp lại được).
+- Promote chỉ là GỢI Ý. User duyệt mới thực hiện (pk-distill Bước 5.5).
+- User bác bỏ → phiếu cũ bị cắt: move sang "Đã xử lý" kèm đánh dấu rejected. Chỉ gợi ý lại khi đủ 3 phiếu MỚI.
+
 ## Knowledge index format
 
 ```markdown
 # Knowledge Index
 
-| Slug | Type | Title | Tags | Status | Usage | Updated |
-|------|------|-------|------|--------|-------|---------|
+| Slug | Type | Title | Tags | Status | Pinned | Usage | Updated |
+|------|------|-------|------|--------|--------|-------|---------|
 ```
+
+`Pinned` (true/false) và `Usage` là giá trị dẫn xuất. Pinned lấy từ frontmatter `pinned` của page. Usage tính từ log theo công thức tại `metrics.md`, mục "Usage count (canonical)".
+
+## Skill/Workflow file format
+
+File trong `skills/` và `workflows/`. pk-distill tạo/sửa.
+
+```yaml
+---
+type: skill|workflow
+title: "..."
+status: active|deprecated|archived
+version: 1
+trigger: "..."
+input: "..."
+output: "..."
+skills_used: [slug-1, slug-2]
+tags: [...]
+updated: YYYY-MM-DD
+---
+```
+
+- `skills_used`: chỉ workflow.
+- `promoted_from: [[slug-nguồn]]`: optional, khi promote từ wiki page.
+
+Mapping frontmatter → cột registry:
+
+| Frontmatter | Cột registry |
+| --- | --- |
+| trigger | Khi nào dùng |
+| skills_used | Skills dùng (chỉ workflow registry) |
+
+Cột Version, Tags, Cập nhật render từ `version`, `tags`, `updated`.
 
 ## Skills registry format
 
