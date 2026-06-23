@@ -93,7 +93,9 @@ Ranh giới: số liệu mức dashboard thuộc pk-analyze. Soi chi tiết từ
 
 ### Usage count (canonical)
 
-Cách đếm usage cho mỗi page: đếm entry usage log của pk-consult trong `log/*.md` theo slug. Tính cả dạng `match: [[slug]]` lẫn `Run: [[slug]]`. pk-distill (cache vào index) và pk-lint (rebuild-index) dùng chung công thức này.
+**Log là SOT của usage.** Cột `Usage` trong `knowledge/index.md` là cache-hint, CÓ THỂ CŨ. Khi cần giá trị chính xác (đặc biệt khi promote), bắt buộc recompute từ log, không tin cột index.
+
+Cách đếm: đếm entry usage log của pk-consult trong `log/*.md` theo slug. Tính cả dạng `match: [[slug]]` lẫn `Run: [[slug]]`. pk-distill (cache vào index) và pk-lint (rebuild-index) dùng chung công thức này.
 
 ## Capacity / xung đột tài nguyên
 

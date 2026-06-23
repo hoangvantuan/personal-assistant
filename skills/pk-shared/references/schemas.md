@@ -39,6 +39,8 @@ status: pending|processed|discarded
 
 pk-capture tách ngay lúc tạo thành 2 items riêng biệt, link nhau qua `related_inbox`. Item execution focus vào action/status. Item knowledge focus vào nội dung tri thức.
 
+**Hợp đồng 2 chiều**: khi tách cặp domain=both, pk-capture ghi `related_inbox` ở CẢ HAI item (item A trỏ item B, item B trỏ item A). Khi xử lý 1 item trong cặp, đọc `related_inbox` để biết item cặp; xử lý nốt hoặc đánh dấu liên đới tránh bỏ rơi nửa cặp.
+
 ## Objective file format
 
 SOT của pk-init. Frontmatter KHÔNG chứa `last_track_date` / `last_review_date` (2 field này thuộc `plan.md`).
@@ -178,7 +180,8 @@ type: concept|decision|pattern|troubleshooting|lesson|resource
 title: "..."
 tags: [...]
 related: [...]
-status: active|deprecated|archived
+status: active|deprecated|archived|stub
+redirect_to: "[[đích]]"
 confidence: low|medium|high
 pinned: false
 updated: YYYY-MM-DD
@@ -201,6 +204,8 @@ updated: YYYY-MM-DD
 ```
 
 `pinned: true` → snapshot preload full body.
+
+`status: stub` + `redirect_to: "[[đích]]"`: page đã được promote thành skill hoặc workflow. `redirect_to` trỏ tới slug đích. Snapshot đọc được ngay từ index mà không cần mở body page. `redirect_to` bắt buộc khi `status: stub`; bỏ trống khi status khác.
 
 Lesson bổ sung: `## Kỳ vọng vs Thực tế`, `## Nguyên nhân gốc`, `## Hành động hệ thống`.
 
@@ -282,11 +287,13 @@ Cơ chế nâng wiki page thành skill/workflow:
 ```markdown
 # Knowledge Index
 
-| Slug | Type | Title | Tags | Status | Pinned | Usage | Updated |
-|------|------|-------|------|--------|--------|-------|---------|
+| Slug | Type | Title | Tags | Status | Pinned | Usage | Updated | Redirect |
+|------|------|-------|------|--------|--------|-------|---------|----------|
 ```
 
-`Pinned` (true/false) và `Usage` là giá trị dẫn xuất. Pinned lấy từ frontmatter `pinned` của page. Usage tính từ log theo công thức tại `metrics.md`, mục "Usage count (canonical)".
+`Pinned` (true/false) và `Usage` là giá trị dẫn xuất. Pinned lấy từ frontmatter `pinned` của page. Usage tính từ log theo công thức tại `metrics.md`, mục "Usage count (canonical)". **Usage trong index là cache-hint, CÓ THỂ CŨ**; log là SOT thực (xem `sot-ownership.md` và `metrics.md`). Không dùng cột Usage trong index để ra quyết định promote: luôn recompute từ log.
+
+`Redirect`: giá trị `[[đích]]` khi `status=stub`, rỗng nếu không. Snapshot đọc cột này để biết đích redirect ngay mà không cần mở body. Cột này được pk-lint rebuild-index sinh từ frontmatter `redirect_to` của page.
 
 ## Skill/Workflow file format
 
@@ -362,6 +369,10 @@ Naming conventions:
 - Inbox: `YYYY-MM-DD-HHmm-slug.md`
 - Knowledge: `{type}-{slug}.md`
 - Log: `YYYY-MM-DD.md`
+
+### Bất biến unique-slug
+
+**Slug phải duy nhất across MỌI type** (knowledge, skill, workflow). Một `[[slug]]` phân giải TẤT ĐỊNH về đúng 1 file trong `.cockpit/`. Không dùng cú pháp `[[type/slug]]`, giữ `[[slug]]` trần. Khi tạo file mới, kiểm tra trùng slug trước (pk-lint check báo vi phạm). Nếu slug đã tồn tại ở type khác, chọn slug khác biệt hơn.
 
 ## raw/ convention
 

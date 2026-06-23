@@ -35,7 +35,7 @@ Ghi chú:
 
 - Roadmap trong plan.md KHÔNG phải SOT, là view dẫn xuất từ actions/. Không sửa tay, chỉ re-render.
 - Tín hiệu schema-signals.md (query-miss, promote-candidate) emit TRỰC TIẾP vào file. Không đi qua inbox. Bất biến "một cửa inbox" chỉ áp cho inbox/ và raw/.
-- usage_count: công thức tại `metrics.md` mục "Usage count (canonical)".
+- **usage_count SOT là `log/`**: cột `Usage` trong `knowledge/index.md` chỉ là **cache-hint, CÓ THỂ CŨ**. Khi cần giá trị chính xác (ví dụ: quyết định promote), bắt buộc recompute từ log theo công thức tại `metrics.md` mục "Usage count (canonical)". Cột index dùng cho dashboard nhanh, không dùng cho quyết định.
 - `pk-lint` mode fix được phép sinh lại các file dẫn xuất (index, registry).
 
 > Bảng này là bản canonical. Mỗi SKILL.md trích subset liên quan. Sửa bảng này trước, subset theo sau.
