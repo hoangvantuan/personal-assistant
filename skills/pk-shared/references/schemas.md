@@ -51,9 +51,12 @@ SOT của pk-init. Frontmatter KHÔNG chứa `last_track_date` / `last_review_da
 ---
 type: project|ongoing
 status: empty|active|paused
-period: "YYYY-MM-DD → YYYY-MM-DD"
+start_date: YYYY-MM-DD
+end_date: YYYY-MM-DD
 review_cycle: 14
-constraints: "capacity, budget, gaps/risks tóm tắt"
+capacity: "..."
+budget: "..."
+gaps_risks: "..."
 ---
 
 ## Mục tiêu
@@ -71,8 +74,14 @@ constraints: "capacity, budget, gaps/risks tóm tắt"
 ```
 
 - `type`: bỏ trống khi `status: empty` (knowledge-only mode).
+- `start_date` / `end_date`: ngày bắt đầu và kết thúc kỳ dự án (YYYY-MM-DD). Dùng để tính % thời gian trôi và Period Overdue (xem `metrics.md`).
 - `review_cycle`: chỉ type ongoing. Đơn vị ngày, đề xuất mặc định 14.
+- `capacity`: mô tả giới hạn năng lực (giờ/tuần, FTE, ...).
+- `budget`: mô tả ngân sách hoặc chi phí giới hạn.
+- `gaps_risks`: tóm tắt khoảng trống và rủi ro của kỳ.
 - KR/KI Status: auto-compute theo `metrics.md`.
+
+> **Ghi chú migrate**: objective.md cũ dùng `period: "YYYY-MM-DD → YYYY-MM-DD"` (chuỗi) và `constraints: "..."` (gộp). Khi áp lên .cockpit/ thật, cần 1 pass pk-lint migrate: parse chuỗi period cũ → `start_date`/`end_date`; tách constraints cũ → `capacity`/`budget`/`gaps_risks`.
 
 ## tools.md format
 

@@ -21,7 +21,7 @@ Các skill trỏ về đây để triển khai block "Ensure snapshot" chuẩn.
 
 | Nguồn | Độ sâu nạp | Dùng để |
 | --- | --- | --- |
-| `objective.md` | Frontmatter: `type`, `status`, `period`, `review_cycle`, KR/KI IDs, constraints tóm tắt | Route, chọn metrics, guard paused |
+| `objective.md` | Frontmatter: `type`, `status`, `start_date`, `end_date`, `review_cycle`, KR/KI IDs, `capacity`, `budget`, `gaps_risks` | Route, chọn metrics, guard paused |
 | `tools.md` | **TOÀN BỘ body** | Inventory công cụ, auto-load concept pages khi match |
 | `plan.md` | Frontmatter + counters | Có/không plan, done rate |
 | `actions/*.md` | Scan frontmatter | Count by status, active IDs |

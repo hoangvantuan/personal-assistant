@@ -35,7 +35,7 @@ Thứ tự ưu tiên (first match):
 | at-risk | Chênh < 20% |
 | off-track | Chênh >= 20% hoặc có actions blocked |
 
-Tiến độ kỳ vọng = % thời gian đã trôi trong period.
+Tiến độ kỳ vọng = `(today - start_date) / (end_date - start_date)` (% thời gian đã trôi trong kỳ).
 
 ## Trend (Ongoing)
 
@@ -99,7 +99,7 @@ Cách đếm: đếm entry usage log của pk-consult trong `log/*.md` theo slug
 
 ## Capacity / xung đột tài nguyên
 
-Đọc constraints trong `objective.md` đối chiếu `actions/*.md`:
+Đọc `capacity`, `budget`, `gaps_risks` trong `objective.md` đối chiếu `actions/*.md`:
 
 | Tín hiệu | Cảnh báo |
 | --- | --- |

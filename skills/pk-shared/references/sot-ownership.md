@@ -6,7 +6,7 @@ Mỗi field SOT chỉ được sửa bởi skill được chỉ định. pk-trac
 
 | Field/File | Skill được phép ghi |
 | --- | --- |
-| objective.md (text, KR/KI targets, period, status, constraints, type, review_cycle) | `pk-init` |
+| objective.md (text, KR/KI targets, start_date, end_date, status, capacity, budget, gaps_risks, type, review_cycle) | `pk-init` |
 | tools.md | `pk-init` |
 | plan.md (milestones) | `pk-plan` |
 | plan.md (Roadmap: view dẫn xuất từ actions/) | `pk-plan`, `pk-track` (re-render) |
