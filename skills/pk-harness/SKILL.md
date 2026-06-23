@@ -69,7 +69,7 @@ Snapshot xong → **đặt marker `SNAPSHOT_LOADED`** (theo Snapshot Contract, m
 | | "track / cập nhật" | `pk-analyze` → `pk-track` light |
 | | "review sâu / phân tích sâu" | `pk-analyze` deep → `pk-track` deep |
 | | "capture / ghi nhanh / note" | `pk-capture` |
-| | "inbox" | `pk-track` inbox-only (execution) HOẶC `pk-distill` (knowledge) |
+| | "inbox" | `pk-track` inbox-only (execution) HOẶC `pk-distill` (knowledge); cả hai domain → xem "Inbox routing đặc biệt" |
 | | "rút bài học / retro" | `pk-reflect` light |
 | | "AAR / phỏng vấn sâu" | `pk-reflect` deep |
 | | "hỏi kho / tra cứu" | `pk-consult` query |
@@ -107,12 +107,7 @@ User nói "inbox" / "xử lý inbox":
 
 ### Deep review (chuỗi tuần tự inline)
 
-1. `pk-analyze` deep → root cause
-2. `pk-track` deep → đề xuất + confirm
-3. Ghi progress
-4. Delegate cấu trúc → `pk-init`/`pk-plan` (pre_confirmed)
-5. Phát hiện tri thức → `pk-capture` (inbox knowledge)
-6. Log review
+`pk-analyze` deep → root cause, rồi `pk-track` deep theo flow của pk-track (gồm delegate cấu trúc, phát hiện tri thức, và log).
 
 ## Phase 3: Tổng hợp
 

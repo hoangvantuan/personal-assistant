@@ -10,8 +10,10 @@ Bảng "Cross-call hợp lệ" là danh sách ĐẦY ĐỦ (whitelist). Cặp kh
 Lớp 1 (orchestrator):  pk-harness
 Lớp 2 (core):          pk-plan, pk-track, pk-reflect
 Lớp 3 (support):       pk-capture, pk-consult, pk-distill, pk-lint
-Lớp 4 (foundation):    pk-analyze, pk-init, pk-shared
+Lớp 4 (foundation):    pk-analyze, pk-init
 ```
+
+pk-shared là thư viện reference (đọc qua path `../pk-shared/references/`), không tham gia cross-call: không phải caller, không phải callee. Mọi skill đọc trực tiếp từ thư mục references/, không gọi pk-shared như một skill.
 
 ## Cross-call hợp lệ
 
