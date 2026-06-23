@@ -111,12 +111,13 @@ Từng item: đồng ý / sửa / bác bỏ.
 ### Bước 5.5: Thực thi promote (nếu được duyệt)
 
 1. **Recompute usage từ log** trước khi quyết định promote (công thức: `../pk-shared/references/metrics.md`, mục "Usage count (canonical)"). KHÔNG tin cột Usage trong index (cache-hint, có thể cũ).
-2. Tạo skill/workflow từ wiki page nguồn
-3. Frontmatter theo Skill/Workflow file format (`../pk-shared/references/schemas.md`), gồm `promoted_from: [[slug-nguồn]]`
-4. **Page nguồn: set frontmatter `status: stub` + `redirect_to: "[[slug-mới]]"`** (slug-mới là skill hoặc workflow đích). Đây là nguồn tất định cho snapshot và pk-consult. Có thể GIỮ thêm dòng marker body "Đã nâng thành skill: [[slug-mới]]" cho người đọc, nhưng frontmatter là nguồn tất định.
-5. Cập nhật registry (bao gồm cột Redirect trong knowledge/index.md)
-6. Cắt promote-candidate từ "Đang chờ xử lý" → "Đã xử lý"
-7. User bác bỏ → cắt phiếu: move các phiếu đó sang "Đã xử lý" kèm đánh dấu rejected. Chỉ gợi ý lại khi đủ act-threshold phiếu MỚI (không tính phiếu rejected cũ).
+2. **Kiểm procedure block của page nguồn** TRƯỚC khi tạo file (canonical: `../pk-shared/references/schemas.md`, mục "Procedure block" và "Promote criteria"). Page nguồn KHÔNG có procedure block (trong `## Cách dùng`) → KHÔNG tạo skill/workflow, báo "cần bổ sung quy trình (procedure block) trước khi promote". Dừng nhánh promote cho page này.
+3. Tạo skill/workflow từ wiki page nguồn
+4. Frontmatter theo Skill/Workflow file format (`../pk-shared/references/schemas.md`), gồm `promoted_from: [[slug-nguồn]]`
+5. **Page nguồn: set frontmatter `status: stub` + `redirect_to: "[[slug-mới]]"`** (slug-mới là skill hoặc workflow đích). Đây là nguồn tất định cho snapshot và pk-consult. Có thể GIỮ thêm dòng marker body "Đã nâng thành skill: [[slug-mới]]" cho người đọc, nhưng frontmatter là nguồn tất định.
+6. Cập nhật registry (bao gồm cột Redirect trong knowledge/index.md)
+7. Cắt promote-candidate từ "Đang chờ xử lý" → "Đã xử lý"
+8. User bác bỏ → cắt phiếu: move các phiếu đó sang "Đã xử lý" kèm đánh dấu rejected. Chỉ gợi ý lại khi đủ act-threshold phiếu MỚI (không tính phiếu rejected cũ).
 
 ### Bước 6: Dọn inbox
 

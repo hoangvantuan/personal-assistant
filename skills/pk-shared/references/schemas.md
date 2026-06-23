@@ -281,6 +281,7 @@ Cơ chế nâng wiki page thành skill/workflow:
 - Trigger DUY NHẤT: page đạt >= 3 phiếu `promote-candidate` trong `schema-signals.md`.
 - `usage_count` KHÔNG phải trigger. Chỉ là bằng chứng phụ trình kèm khi duyệt.
 - Type đủ điều kiện promote: `pattern`, `troubleshooting`, `lesson` (lesson chỉ khi mô tả quy trình lặp lại được).
+- Wiki page được promote phải CÓ procedure block (trong `## Cách dùng`; canonical: mục "Procedure block"). Thiếu → yêu cầu bổ sung procedure block trước khi tạo skill/workflow.
 - Promote chỉ là GỢI Ý. User duyệt mới thực hiện (pk-distill Bước 5.5).
 - User bác bỏ → phiếu cũ bị cắt: move sang "Đã xử lý" kèm đánh dấu rejected. Chỉ gợi ý lại khi đủ 3 phiếu MỚI.
 
@@ -319,7 +320,7 @@ Procedure block gồm:
 ### Ràng buộc bắt buộc
 
 - **Workflow**: procedure block là **body BẮT BUỘC**. Workflow không có procedure block là **không hợp lệ**: không thể Run, không thể promote.
-- **Skill**: procedure block KHÔNG bắt buộc trong mọi skill; tuy nhiên skill/workflow không có procedure block sẽ bị báo "mới mô tả, chưa có quy trình" khi Run (xem pk-consult Mode Run).
+- **Skill**: procedure block không bắt buộc để TẠO file; nhưng THIẾU thì không Run/promote được (bị báo "mới mô tả, chưa có quy trình" khi Run, xem pk-consult Mode Run).
 - **Wiki page** (pattern/troubleshooting/lesson): được phép xuất hiện procedure block trong `## Cách dùng`, không bắt buộc.
 
 ### Ràng buộc Run/promote
@@ -347,6 +348,7 @@ updated: YYYY-MM-DD
 
 - `skills_used`: chỉ workflow.
 - `promoted_from: [[slug-nguồn]]`: optional, khi promote từ wiki page.
+- Body BẮT BUỘC có procedure block đối với workflow (xem mục "Procedure block"); skill cần procedure block để Run/promote.
 
 Mapping frontmatter → cột registry:
 
