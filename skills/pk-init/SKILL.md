@@ -12,14 +12,14 @@ SOT chính: `objective.md` và `tools.md`.
 | Mode | Trigger | Mô tả |
 | --- | --- | --- |
 | `new` | Chưa có `.cockpit/` | Tạo toàn bộ cấu trúc + SCHEMA.md + registries |
-| `update-objective` | Sửa objective/KR/KI/period/constraints | Sửa objective.md |
+| `update-objective` | Sửa objective/KR/KI/start_date/end_date/capacity/budget/gaps_risks | Sửa objective.md |
 | `update-tools` | Sửa tools (thêm/bỏ công cụ) | Sửa tools.md |
 
 ## SOT quyền ghi
 
 | File | Fields |
 | --- | --- |
-| objective.md | Objective text, KR/KI targets, period, status, constraints, type, review_cycle |
+| objective.md | Objective text, KR/KI targets, start_date, end_date, status, capacity, budget, gaps_risks, type, review_cycle |
 | tools.md | Bảng tools 4 cột |
 | SCHEMA.md | Chỉ khi mode new (tạo lần đầu) |
 | schema-signals.md | Chỉ khi mode new (tạo lần đầu) |
@@ -71,7 +71,9 @@ Hỏi user: "Dự án dùng công cụ gì? (CLI, MCP, API, manual)". Ghi vào `
 Hỏi user: "Mục tiêu dự án là gì? (Bỏ qua nếu chưa sẵn sàng, chạy knowledge-only mode)".
 
 Nếu user cung cấp:
-- Thu thập objective text + KR/KI + constraints (capacity, budget, gaps/risks)
+- Thu thập objective text + KR/KI
+- Hỏi `start_date` và `end_date` (ngày bắt đầu và kết thúc kỳ)
+- Hỏi `capacity` (giới hạn năng lực), `budget` (ngân sách), `gaps_risks` (khoảng trống/rủi ro), ghi vào 3 field riêng
 - Hỏi `type`: project hoặc ongoing. Nếu ongoing, hỏi tiếp `review_cycle` (đề xuất 14 ngày)
 - Ghi `objective.md`
 
