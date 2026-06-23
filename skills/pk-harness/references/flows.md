@@ -119,7 +119,24 @@ sequenceDiagram
     H->>U: Kết quả
 ```
 
-## 8. Reflect flow (light)
+## 8. Consult flow (teach)
+
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant H as Harness (1 agent)
+
+    U->>H: "soạn onboarding" / "dạy lại X"
+    H->>H: → pk-consult teach: gom page theo chủ đề
+    H->>H: → pk-consult: xếp biết/hiểu/làm
+    H->>H: → pk-consult: soạn lộ trình (link [[slug]], không copy nguyên văn)
+    H->>U: Trình lộ trình
+    opt User chỉ định ghi file
+        H->>H: Ghi file (NGOÀI .cockpit/)
+    end
+```
+
+## 10. Reflect flow (light)
 
 ```mermaid
 sequenceDiagram
@@ -156,7 +173,7 @@ sequenceDiagram
     H->>U: Báo cáo
 ```
 
-## 10. Lint flow
+## 11. Lint flow
 
 ```mermaid
 sequenceDiagram
@@ -174,7 +191,7 @@ sequenceDiagram
     end
 ```
 
-## 11. Inbox routing
+## 12. Inbox routing
 
 ```mermaid
 sequenceDiagram
@@ -195,6 +212,8 @@ sequenceDiagram
 ```
 
 ## 4 điểm tích hợp chính
+
+4 điểm tích hợp dưới đây là **bản phái sinh** từ `../../pk-shared/references/cross-call-rules.md` (canonical bảng cross-call hợp lệ). Khi lệch, cross-call-rules.md thắng.
 
 ### 1. Plan → Consult (tri thức hỗ trợ lập kế hoạch)
 

@@ -52,6 +52,11 @@ Ranh giới: pk-analyze đếm số liệu tổng cho dashboard. pk-lint soi chi
 **6. Knowledge health metrics**
 - Page count, freshness, orphans, usage distribution theo ../pk-shared/references/metrics.md, KHÔNG chép công thức
 
+**7. Kiểm thủ công drift prose** (thủ công, không auto)
+- (a) README architecture map: đối chiếu sơ đồ cây `.cockpit/` trong README.md với cấu trúc `.cockpit/` thật. Nếu có file/folder mới chưa xuất hiện trong sơ đồ, báo để cập nhật thủ công.
+- (b) flows.md: đối chiếu "4 điểm tích hợp" trong `skills/pk-harness/references/flows.md` với bảng cross-call hợp lệ trong `../pk-shared/references/cross-call-rules.md`. Nếu lệch, báo để cập nhật thủ công.
+- Hạng mục này KHÔNG tự fix được bằng grep; yêu cầu người dùng xác nhận và sửa.
+
 ### Output
 
 ```markdown
@@ -86,6 +91,7 @@ Sinh lại file dẫn xuất từ nguồn gốc (frontmatter + log), format theo
 1. Quét knowledge/*.md → sinh knowledge/index.md (bao gồm cột Redirect từ frontmatter `redirect_to`)
 2. Quét skills/*.md → sinh skills/registry.md
 3. Quét workflows/*.md → sinh workflows/registry.md
+4. **Tái sinh bảng consumer** trong `../pk-shared/SKILL.md`: grep ngược qua tất cả `skills/pk-*/SKILL.md`, tìm dòng tham chiếu `../pk-shared/references/<file>.md`. Với mỗi reference file, liệt kê danh sách skill đang tham chiếu → cập nhật cột "Skill tiêu thụ chính" trong bảng References của `pk-shared/SKILL.md`. Bảng consumer là bản phái sinh; rebuild-index là cơ chế tái sinh chuẩn.
 
 Cột Usage tái dẫn xuất từ log theo công thức ../pk-shared/references/metrics.md mục "Usage count (canonical)". Fallback: log thiếu thì giữ giá trị Usage cũ trong index; không có giá trị cũ thì để 0. (Usage được tính từ log, không phải frontmatter.) Cột Usage là cache-hint; log là SOT (xem ../pk-shared/references/sot-ownership.md).
 
