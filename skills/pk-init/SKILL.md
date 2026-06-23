@@ -31,7 +31,9 @@ SOT chính: `objective.md` và `tools.md`.
 - Hỏi từng câu một, không hàng loạt.
 - BẮT BUỘC confirm bảng trước ghi.
 - Quality Gate 3 câu trước mỗi follow-up (`../pk-shared/references/quality-gate.md`).
-- Snapshot Contract (`../pk-shared/references/snapshot-contract.md`): idempotent, qua harness đã có, chạy lẻ tự nạp.
+- **Snapshot Contract** (`../pk-shared/references/snapshot-contract.md`):
+  - Mode `new`: KHÔNG ensure snapshot (.cockpit/ chưa tồn tại, đây là bước tạo cấu trúc). Marker `SNAPSHOT_LOADED` chưa cần.
+  - Mode `update-objective` / `update-tools`: cần ensure snapshot trước khi đọc objective.md/tools.md (theo Snapshot Contract, mục "Nguyên tắc idempotent"). Phiên chưa có marker → tự nạp full rồi đặt marker.
 - Solo only: 1 user, 1 objective.
 - Đề xuất + lý do, user quyết.
 

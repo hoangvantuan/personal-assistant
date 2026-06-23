@@ -5,6 +5,13 @@ description: "Rút bài học từ phiên làm việc hoặc sự kiện. Light 
 
 # PK Reflect: Rút bài học
 
+## Ensure snapshot (bắt buộc, đầu flow)
+
+1. **Precondition**: `.cockpit/` tồn tại. Thiếu → route `pk-init` (mode new), KHÔNG nạp gì thêm, dừng.
+2. **Idempotent qua marker**: phiên CHƯA có marker `SNAPSHOT_LOADED` → tự nạp full theo Snapshot Contract
+   (`../pk-shared/references/snapshot-contract.md`) rồi đặt marker `SNAPSHOT_LOADED`. Đã có marker (vd
+   harness Phase 1 đã đặt) → skip, không đọc lại.
+
 2 mode: **light** (mặc định, rút nhanh từ phiên) và **deep** (phỏng vấn AAR 5 câu). Output → inbox.
 
 ## Modes
@@ -43,6 +50,8 @@ Gọi pk-capture flow từ Bước 2 (trình candidates). Set `captured_from: re
 ### Bước 1: Lấy data
 
 Gọi pk-analyze (cross-call lớp 2 → lớp 4) lấy metrics, trends. Đọc log gần nhất.
+
+**Degraded** (khi `.cockpit/` có nhưng KHÔNG có objective hoặc plan, tức "pk-reflect deep degraded" theo `../pk-shared/references/snapshot-contract.md`, mục "Graceful Degradation"): phỏng vấn 5 câu VẪN chạy, nhưng bỏ phần metrics/trends (pk-analyze chỉ knowledge-only, data nghèo). Thông báo cho user biết mode degraded trước khi tiếp tục.
 
 ### Bước 2: Chọn bối cảnh
 

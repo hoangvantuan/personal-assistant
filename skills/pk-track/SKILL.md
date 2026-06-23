@@ -5,6 +5,13 @@ description: "Cập nhật tiến độ và review dự án. Light: ghi nhận t
 
 # PK Track: Track + Review + Inbox Execution
 
+## Ensure snapshot (bắt buộc, đầu flow)
+
+1. **Precondition**: `.cockpit/` tồn tại. Thiếu → route `pk-init` (mode new), KHÔNG nạp gì thêm, dừng.
+2. **Idempotent qua marker**: phiên CHƯA có marker `SNAPSHOT_LOADED` → tự nạp full theo Snapshot Contract
+   (`../pk-shared/references/snapshot-contract.md`) rồi đặt marker `SNAPSHOT_LOADED`. Đã có marker (vd
+   harness Phase 1 đã đặt) → skip, không đọc lại.
+
 Ghi progress fields, log, archive. KHÔNG sửa cấu trúc (delegate sang pk-init/pk-plan).
 
 ## Modes
@@ -35,7 +42,6 @@ Ghi progress fields, log, archive. KHÔNG sửa cấu trúc (delegate sang pk-in
 
 - Dashboard TRƯỚC khi hỏi update.
 - Confirm trước ghi. <= 2 field → 1 dòng, >= 3 → bảng.
-- Snapshot Contract: idempotent.
 - Metrics: `../pk-shared/references/metrics.md` (canonical).
 - Append-only log.
 - Cuối flow đề xuất next action.
@@ -56,6 +62,7 @@ Bảng thay đổi. User confirm.
 
 ### Phase 4: Ghi
 
+- **Đọc body action hiện tại trước khi ghi** `## Output/Deliverable` (bất biến canonical: `../pk-shared/references/snapshot-contract.md`, mục "Bất biến đọc body trước khi ghi body"). Snapshot chỉ có frontmatter; không đọc body trước = rủi ro ghi đè.
 - Cập nhật KR/KI current trong objective.md
 - Cập nhật action status trong actions/*.md
 - Tính KR Status auto-compute (metrics.md)

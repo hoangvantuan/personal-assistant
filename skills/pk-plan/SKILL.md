@@ -5,6 +5,13 @@ description: "Tạo hoặc sửa kế hoạch hành động: plan, milestones, a
 
 # PK Plan: Tạo + cập nhật plan & actions
 
+## Ensure snapshot (bắt buộc, đầu flow)
+
+1. **Precondition**: `.cockpit/` tồn tại. Thiếu → route `pk-init` (mode new), KHÔNG nạp gì thêm, dừng.
+2. **Idempotent qua marker**: phiên CHƯA có marker `SNAPSHOT_LOADED` → tự nạp full theo Snapshot Contract
+   (`../pk-shared/references/snapshot-contract.md`) rồi đặt marker `SNAPSHOT_LOADED`. Đã có marker (vd
+   harness Phase 1 đã đặt) → skip, không đọc lại.
+
 SOT chính: `plan.md` và `actions/`.
 
 ## Modes
@@ -35,7 +42,6 @@ SOT chính: `plan.md` và `actions/`.
 - Action mơ hồ ("Nghiên cứu thêm" không output) → CẤM.
 - Effort xl → BẮT BUỘC Checkpoints hoặc tách.
 - Confirm bảng trước ghi. Render Roadmap sau ghi.
-- Snapshot Contract (`../pk-shared/references/snapshot-contract.md`): idempotent.
 - Quality Gate (`../pk-shared/references/quality-gate.md`): 3 câu trước mỗi follow-up.
 
 ## Tích hợp tri thức (Plan → Consult)

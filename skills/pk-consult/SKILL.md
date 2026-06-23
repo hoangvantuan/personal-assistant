@@ -5,6 +5,13 @@ description: "Tra cứu và vận dụng tri thức đã đúc kết trong .cock
 
 # PK Consult: Tham vấn tri thức
 
+## Ensure snapshot (bắt buộc, đầu flow)
+
+1. **Precondition**: `.cockpit/` tồn tại. Thiếu → route `pk-init` (mode new), KHÔNG nạp gì thêm, dừng.
+2. **Idempotent qua marker**: phiên CHƯA có marker `SNAPSHOT_LOADED` → tự nạp full theo Snapshot Contract
+   (`../pk-shared/references/snapshot-contract.md`) rồi đặt marker `SNAPSHOT_LOADED`. Đã có marker (vd
+   harness Phase 1 đã đặt) → skip, không đọc lại.
+
 Auto-detect mode dựa ngữ cảnh:
 - **Query** (read-only): tra cứu knowledge, trả lời câu hỏi từ kho
 - **Run** (thực thi): chạy skill/workflow đã đúc kết

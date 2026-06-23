@@ -5,6 +5,13 @@ description: "Kiểm tra sức khoẻ hệ thống .cockpit/: link hỏng, regis
 
 # PK Lint: Rà soát + sửa chữa hệ thống
 
+## Ensure snapshot (bắt buộc, đầu flow)
+
+1. **Precondition**: `.cockpit/` tồn tại. Thiếu → route `pk-init` (mode new), KHÔNG nạp gì thêm, dừng.
+2. **Idempotent qua marker**: phiên CHƯA có marker `SNAPSHOT_LOADED` → tự nạp full theo Snapshot Contract
+   (`../pk-shared/references/snapshot-contract.md`) rồi đặt marker `SNAPSHOT_LOADED`. Đã có marker (vd
+   harness Phase 1 đã đặt) → skip, không đọc lại.
+
 3 mode: **check** (mặc định, read-only), **fix** (consolidation + rebuild + restore), **evolve** (schema-review).
 
 ## Mode check (health check, read-only)

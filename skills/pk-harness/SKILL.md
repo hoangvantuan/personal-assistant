@@ -44,12 +44,16 @@ objective.md              frontmatter
 tools.md                  toàn bộ
 plan.md                   frontmatter
 actions/                  scan frontmatter
-inbox/                    scan frontmatter
+inbox/                    scan frontmatter + captured_at mỗi item
+schema-signals.md         toàn bộ
+SCHEMA.md                 toàn bộ
 knowledge/index.md        toàn bộ
 skills/registry.md        toàn bộ
 workflows/registry.md     toàn bộ
 Pinned pages              full body
 ```
+
+Snapshot xong → **đặt marker `SNAPSHOT_LOADED`** (theo Snapshot Contract, mục "Nguyên tắc idempotent"). Skill được gọi inline thấy marker → KHÔNG đọc lại snapshot.
 
 ### Intent routing
 

@@ -7,13 +7,16 @@ description: "Đúc kết inbox thành tri thức có cấu trúc: knowledge pag
 
 > **QUY TẮC SỐ 1: LUÔN đọc `knowledge/index.md` + `skills/registry.md` + `workflows/registry.md` TRƯỚC KHI xử lý. Ưu tiên cải tiến cái cũ hơn tạo mới.**
 
-## Precondition
+## Ensure snapshot (bắt buộc, đầu flow)
 
-1. `.cockpit/` tồn tại.
-2. Có ít nhất 1 trong 2 nguồn việc:
+1. **Precondition**: `.cockpit/` tồn tại. Thiếu → route `pk-init` (mode new), KHÔNG nạp gì thêm, dừng.
+2. **Idempotent qua marker**: phiên CHƯA có marker `SNAPSHOT_LOADED` → tự nạp full theo Snapshot Contract
+   (`../pk-shared/references/snapshot-contract.md`) rồi đặt marker `SNAPSHOT_LOADED`. Đã có marker (vd
+   harness Phase 1 đã đặt) → skip, không đọc lại.
+3. **Precondition nguồn việc** (đặc thù pk-distill): cần ít nhất 1 trong 2 nguồn:
    - (1) `inbox/` có item `domain: knowledge`, `status: pending`.
    - (2) Có page đạt act-threshold `promote-candidate` trong `schema-signals.md` (ngưỡng canonical: `../pk-shared/references/schemas.md`, mục "Bảng ngưỡng emit/act").
-3. Cả hai rỗng → "Không có gì để đúc kết." Dừng.
+   Cả hai rỗng → "Không có gì để đúc kết." Dừng.
 4. Chỉ có (2) → chạy nhánh promote-only: Bước 1 → 1.5 → 4 → 5.5 → 7.
 
 ## Bảng quyết định hành động
