@@ -6,12 +6,14 @@ Canonical. Định nghĩa context snapshot MỌI skill pk-* đều đọc ở đ
 
 ## Nguyên tắc idempotent (không đọc trùng)
 
-Chỉ nạp cái **chưa có** trong context.
+Chỉ nạp cái **chưa có** trong context. Idempotency **kiểm được bằng marker `SNAPSHOT_LOADED`** (không dựa vào "agent tự nhớ"):
 
-- Chạy QUA `pk-harness`: orchestrator Phase 1 đã snapshot. Skill KHÔNG đọc lại.
-- Chạy LẺ (không qua harness): skill tự nạp phần thiếu, một lần, ở đầu flow.
+- Chạy QUA `pk-harness`: Phase 1 snapshot xong, harness **đặt marker `SNAPSHOT_LOADED`**. Skill thấy marker → KHÔNG đọc lại.
+- Chạy LẺ (không qua harness): skill tự nạp full một lần ở đầu flow rồi **đặt marker `SNAPSHOT_LOADED`**.
 
 Trước khi nạp: kiểm tra `.cockpit/` tồn tại. Không có → route `pk-init` (không nạp gì thêm).
+
+Các skill trỏ về đây để triển khai block "Ensure snapshot" chuẩn.
 
 ## Context Snapshot (1 bản duy nhất)
 
@@ -23,7 +25,9 @@ Trước khi nạp: kiểm tra `.cockpit/` tồn tại. Không có → route `pk
 | `tools.md` | **TOÀN BỘ body** | Inventory công cụ, auto-load concept pages khi match |
 | `plan.md` | Frontmatter + counters | Có/không plan, done rate |
 | `actions/*.md` | Scan frontmatter | Count by status, active IDs |
-| `inbox/*.md` | Scan frontmatter `status: pending` | Count by domain |
+| `inbox/*.md` | Scan frontmatter `status: pending` + `captured_at` mỗi item (cho Inbox Aging) | Count by domain + dữ liệu aging |
+| `schema-signals.md` | **TOÀN BỘ** (tối thiểu 2 section "Đang chờ xử lý" / "Đã xử lý") | Tín hiệu promote-candidate, strain; dùng bởi pk-distill, pk-lint |
+| `SCHEMA.md` | **TOÀN BỘ body** | Quy ước dữ liệu project-specific; dùng bởi pk-distill (phân loại type) và pk-lint (evolve) |
 | `knowledge/index.md` | **TOÀN BỘ** | Registry tri thức + usage count |
 | `skills/registry.md` | **TOÀN BỘ** | Registry skills |
 | `workflows/registry.md` | **TOÀN BỘ** | Registry workflows |
@@ -52,6 +56,14 @@ Trước khi nạp: kiểm tra `.cockpit/` tồn tại. Không có → route `pk
 ## Auto-load concept pages từ tools.md
 
 Khi skill phát hiện keyword match giữa task hiện tại và tool/concept trong snapshot → tự load concept page chi tiết từ `knowledge/`. An toàn vì read-only.
+
+## Bất biến "đọc body trước khi ghi body"
+
+Snapshot chỉ preload chỉ mục và frontmatter, **KHÔNG preload body**. Do đó:
+
+**Mỗi điểm GHI body file phải ĐỌC body hiện tại của file đó TRƯỚC khi ghi.** Ghi đè body mà không đọc trước = mất dữ liệu.
+
+Áp dụng cho mọi skill ghi body (pk-track, pk-plan, pk-init, pk-distill, pk-lint). Không ngoại lệ.
 
 ## Reachability khi ghi (chống file mồ côi)
 
