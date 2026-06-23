@@ -70,9 +70,11 @@ Trình đề xuất:
 
 ### Bước 3.5: Phát tín hiệu strain
 
-Phát hiện "khuôn không vừa" → ghi `schema-signals.md`:
+Phát hiện "khuôn không vừa" → ghi `schema-signals.md`. Ngưỡng emit/act canonical: `../pk-shared/references/schemas.md`, mục "Bảng ngưỡng emit/act".
+
 - `no-fit-type`: item không vừa 6 wiki types
 - `adhoc-section`: section ngoài format chuẩn (`../pk-shared/references/schemas.md`) VÀ ngoài `SCHEMA.md` (template đã evolve), lặp >= 2 page cùng type. Section `## Mâu thuẫn đang mở` thuộc format chuẩn, KHÔNG tính.
+- `term-repeat`: thuật ngữ lặp >= 2 page (cung cấp dữ liệu cho pk-lint evolve thêm glossary thay cho "quét sống"). Ghi thêm trường `term: "<thuật-ngữ>"` vào phiếu.
 
 ### Bước 4: User duyệt
 

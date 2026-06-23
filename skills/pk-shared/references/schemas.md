@@ -2,6 +2,17 @@
 
 Schema dùng chung giữa nhiều skill. File này là bản canonical duy nhất. SKILL.md các skill chỉ trích subset liên quan. Khi subset lệch file này thì file này thắng. Sửa file này trước, subset theo sau.
 
+## Phân vùng schemas.md và SCHEMA.md
+
+Hai file phục vụ hai mục đích không giao nhau:
+
+- `schemas.md` (file này): **bất biến lõi**, không project nào được thay đổi. Gồm: frontmatter bắt buộc, format inbox/action/log/objective/plan, 6 wiki type gốc, promote criteria, ngưỡng tín hiệu. Read-only ở runtime.
+- `SCHEMA.md` (nằm trong `.cockpit/` của từng project, KHÔNG tồn tại trong repo này): **phần mở rộng project-specific**, do `pk-lint` evolve sinh ra. Gồm: type wiki mới ngoài 6 type gốc, section đã template hoá, glossary, ngưỡng tuỳ biến.
+
+Hai vùng **không giao**: không có luật thắng-thua giữa chúng. Writer đọc lõi từ `schemas.md`, đọc mở rộng từ `SCHEMA.md`; `pk-lint` evolve chỉ ghi `SCHEMA.md` nên có hiệu lực ngay trong project.
+
+> **`SCHEMA.md` = `schemas.md` + delta evolve; trong phạm vi project, vùng mở rộng do `SCHEMA.md` sở hữu.**
+
 ## Inbox item thống nhất
 
 ```yaml
@@ -194,6 +205,67 @@ updated: YYYY-MM-DD
 Lesson bổ sung: `## Kỳ vọng vs Thực tế`, `## Nguyên nhân gốc`, `## Hành động hệ thống`.
 
 Mọi type có thể có section optional `## Mâu thuẫn đang mở`. Section này thuộc format chuẩn, KHÔNG tính là adhoc-section. Gỡ khi mâu thuẫn được giải quyết.
+
+## schema-signals.md format
+
+File `schema-signals.md` lưu tín hiệu "khuôn không vừa" từ quá trình xử lý. Bản ghi key-value cố định. Ai được ghi/đọc xem `sot-ownership.md`.
+
+### Cấu trúc file
+
+```markdown
+# Schema Signals
+
+## Đang chờ xử lý
+
+<!-- Mỗi phiếu một block: -->
+- type: <loại-phiếu>
+  slug: <slug-của-page-hoặc-mô-tả-ngắn>
+  source_skill: <pk-distill|pk-consult>
+  timestamp: "YYYY-MM-DDTHH:mm"
+  [trường bổ sung tuỳ loại phiếu]
+
+## Đã xử lý
+
+<!-- Phiếu đã batch hoặc bị bác, kèm kết quả: -->
+- type: <loại-phiếu>
+  slug: <slug>
+  source_skill: <skill>
+  timestamp: "YYYY-MM-DDTHH:mm"
+  result: approved|rejected
+  processed_at: "YYYY-MM-DDTHH:mm"
+```
+
+### 5 loại phiếu
+
+| Loại phiếu | Emit bởi | Ý nghĩa |
+| --- | --- | --- |
+| `promote-candidate` | pk-consult, pk-distill | Page đủ điều kiện nâng thành skill/workflow |
+| `query-miss` | pk-consult | Câu hỏi không có page nào trả lời trực tiếp |
+| `no-fit-type` | pk-distill | Item không vừa 6 wiki type gốc |
+| `adhoc-section` | pk-distill | Section ngoài format chuẩn, lặp >= 2 page cùng type |
+| `term-repeat` | pk-distill | Thuật ngữ lặp >= 2 page (dữ liệu cho evolve glossary) |
+
+### Quy tắc phiếu rejected
+
+User bác bỏ promote → move các phiếu `promote-candidate` sang "Đã xử lý" kèm `result: rejected`. Chỉ gợi ý lại khi đủ 3 phiếu MỚI (không tính phiếu rejected cũ).
+
+## Bảng ngưỡng emit/act (canonical)
+
+Bảng duy nhất định nghĩa ngưỡng cho mọi loại tín hiệu. SKILL.md các skill chỉ **trỏ về đây**, không tự chép số.
+
+| Loại tín hiệu | Emit-threshold (ai emit) | Act-threshold (ai act + hành động) |
+| --- | --- | --- |
+| `promote-candidate` | Mỗi lần pk-consult/pk-distill phát hiện điều kiện | >= 3 phiếu cùng slug (pk-distill propose promote) |
+| `query-miss` | Mỗi lần query chắp >= 3 page hoặc không có page | Bằng chứng phụ, không tự kích hoạt thay đổi |
+| `no-fit-type` | Mỗi lần pk-distill gặp item không vừa 6 type | >= 5 phiếu cùng cụm tag (pk-lint evolve: thêm page type) |
+| `adhoc-section` | pk-distill: section ngoài chuẩn, lặp >= 2 page cùng type | >= 3 phiếu cùng section name (pk-lint evolve: template hoá section) |
+| `term-repeat` | pk-distill: thuật ngữ lặp >= 2 page | >= 3 phiếu cùng thuật ngữ (pk-lint evolve: thêm glossary) |
+| (layout) | (không có tín hiệu riêng, pk-lint đếm trực tiếp) | >= 15 page active cùng type (pk-lint evolve: tách subfolder) |
+
+Ghi chú cột:
+- **Emit-threshold**: ngưỡng để ghi phiếu vào schema-signals.md. Emit sớm để tích bằng chứng.
+- **Act-threshold**: ngưỡng để pk-lint evolve đề xuất thay đổi SCHEMA.md. Act muộn khi đủ bằng chứng.
+- Hai ngưỡng phục vụ hai giai đoạn khác nhau, **không ép chúng bằng nhau**.
 
 ## Promote criteria
 

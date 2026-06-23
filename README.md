@@ -61,7 +61,7 @@ Các skill tuân theo phân cấp 4 lớp nghiêm ngặt (Orchestrator > Core > 
 
 - **Inbox thống nhất**: Một điểm capture duy nhất. Tự phân luồng sang execution hoặc knowledge dựa trên loại item.
 - **Snapshot contract**: Một lần đọc context duy nhất, idempotent, dùng chung cho mọi skill. Không đọc file trùng lặp.
-- **Promote lifecycle**: Trang wiki có 3+ lần sử dụng được thăng cấp thành skill/workflow.
+- **Promote lifecycle**: Trang wiki đạt >= 3 phiếu `promote-candidate` trong `schema-signals.md` được đề xuất thăng cấp thành skill/workflow (user duyệt mới thực hiện).
 - **Graceful degradation**: Skill tự thích ứng khi thiếu file. Chưa có objective? Chạy chế độ tri thức. Chưa có plan? Gợi ý tạo mới.
 - **Quality gate**: Kiểm tra nội bộ 3 điểm (cụ thể, giả định ẩn, mâu thuẫn) trước mỗi bước tiếp theo.
 

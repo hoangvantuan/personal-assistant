@@ -99,8 +99,8 @@ Tổng hợp tín hiệu "khuôn không vừa" → đề xuất diff lên SCHEMA
 ### Flow
 
 1. Đọc `schema-signals.md` (BỎ QUA promote-candidate)
-2. Quét sống: đếm page/type, cụm tag, file phình
-3. Áp ngưỡng (bảo thủ: thà bỏ sót hơn báo nhiễu)
+2. Quét sống: đếm page/type, cụm tag, file phình (KHÔNG dùng cho glossary, xem ghi chú bên dưới)
+3. Áp ngưỡng (bảo thủ: thà bỏ sót hơn báo nhiễu). Ngưỡng canonical: `../pk-shared/references/schemas.md`, mục "Bảng ngưỡng emit/act".
 4. Sinh đề xuất diff
 5. User duyệt
 6. Migrate: bump version, rewrite link, rebuild index
@@ -108,16 +108,19 @@ Tổng hợp tín hiệu "khuôn không vừa" → đề xuất diff lên SCHEMA
 
 ### 4 loại thay đổi
 
-| Thay đổi | Ngưỡng kích hoạt |
+Ngưỡng đầy đủ (emit-threshold + act-threshold) tại `../pk-shared/references/schemas.md`, mục "Bảng ngưỡng emit/act".
+
+| Thay đổi | Tín hiệu đọc |
 | --- | --- |
-| Thêm page type | >= 5 tín hiệu no-fit-type cùng cụm tag |
-| Đổi layout (tách subfolder) | >= 15 page active cùng type |
-| Đổi format (template hoá section) | Section adhoc lặp >= 3 page |
-| Thêm glossary | Thuật ngữ lặp >= 3 page |
+| Thêm page type | `no-fit-type` |
+| Đổi layout (tách subfolder) | (đếm trực tiếp page active) |
+| Đổi format (template hoá section) | `adhoc-section` |
+| Thêm glossary | `term-repeat` |
 
 Ghi chú:
 - query-miss là bằng chứng phụ, không tự kích hoạt thay đổi.
 - Dưới ngưỡng: GIỮ tín hiệu, không xoá.
+- **Glossary**: đọc tín hiệu `term-repeat` từ schema-signals.md thay cho "quét sống". pk-distill emit `term-repeat` khi xử lý nội dung (đáng tin hơn quét tĩnh).
 
 ## Log
 
