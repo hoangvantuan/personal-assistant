@@ -41,6 +41,8 @@ Phần tiêu chí domain trích từ `../pk-shared/references/schemas.md`. Khi l
 
 Khi item vừa có tính execution vừa có tính knowledge: tách ngay thành 2 items riêng biệt, link qua `related_inbox`. Item execution focus action/status. Item knowledge focus nội dung tri thức.
 
+**Hợp đồng 2 chiều**: ghi `related_inbox` ở CẢ HAI item (item A điền tên file của item B, item B điền tên file của item A). Không để 1 chiều.
+
 ## Chế độ capture
 
 ### 1. Từ cuộc trao đổi (mặc định)
@@ -106,5 +108,5 @@ Báo user. Gợi ý:
 1. Capture CHỈ ghi `inbox/`, `raw/` và append `log/`. KHÔNG ghi actions, knowledge, skills, workflows.
 2. Luôn trình candidates cho user duyệt trước ghi.
 3. Luôn lưu raw (cả khi nguồn là hội thoại).
-4. domain=both tách ngay thành 2 items, link qua `related_inbox`.
+4. domain=both tách ngay thành 2 items, link qua `related_inbox` 2 chiều (cả 2 item đều điền field này).
 5. Khi không có objective, domain mặc định = knowledge.

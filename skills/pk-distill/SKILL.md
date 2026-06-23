@@ -43,11 +43,13 @@ description: "Đúc kết inbox thành tri thức có cấu trúc: knowledge pag
 - Gom theo slug, đếm phiếu
 - Đạt act-threshold của `promote-candidate` (canonical: `../pk-shared/references/schemas.md`, mục "Bảng ngưỡng emit/act") → ứng viên promote
 - Dưới ngưỡng → để lại
-- Trình ứng viên kèm Usage từ `knowledge/index.md` làm BẰNG CHỨNG PHỤ, không phải ngưỡng
+- Trình ứng viên kèm **Usage recompute từ log** (công thức: `../pk-shared/references/metrics.md`, mục "Usage count (canonical)") làm BẰNG CHỨNG PHỤ. KHÔNG dùng cột Usage trong index (cache-hint, có thể cũ).
 
 ### Bước 2: Đọc inbox
 
 Liệt kê inbox `domain: knowledge`, `status: pending`. Đọc nội dung.
+
+Khi item có `related_inbox` (cặp domain=both): đọc item cặp để hiểu đủ ngữ cảnh. Khi xử lý item này, đánh dấu liên đới lên item cặp (tránh bỏ rơi nửa cặp). Item cặp thuộc domain=execution → thông báo cho pk-track biết để xử lý nốt khi track.
 
 ### Bước 3: Phân tích + đề xuất
 
@@ -85,18 +87,23 @@ Từng item: đồng ý / sửa / bác bỏ.
 1. **Tạo/cập nhật page** theo format (`../pk-shared/references/schemas.md`)
 2. **Cập nhật registry**: knowledge/index.md, skills/registry.md, workflows/registry.md
 3. **Cross-referencing**: `related: [...]` + `[[slug]]` links
-4. **Rewrite inbound link** khi GỘP/deprecate
+4. **Rewrite inbound link khi GỘP/deprecate**: grep ngược bắt buộc trước khi gộp/deprecate:
+   ```bash
+   grep -rl "[[slug-cũ]]" .cockpit/
+   ```
+   Rewrite mọi link tìm được. KHÔNG duy trì back-link index/danh sách inbound (tránh drift). pk-lint link-integrity là lưới an toàn bắt link mồ côi còn sót.
 5. **Lifecycle metadata**: status, confidence
-6. **Cache usage_count**: đọc log, cập nhật Usage trong knowledge/index.md (công thức: `../pk-shared/references/metrics.md`, mục "Usage count (canonical)")
+6. **Cache usage_count**: đọc log, cập nhật Usage trong knowledge/index.md (công thức: `../pk-shared/references/metrics.md`, mục "Usage count (canonical)"). Đây là cache-hint; log là SOT.
 
 ### Bước 5.5: Thực thi promote (nếu được duyệt)
 
-1. Tạo skill/workflow từ wiki page nguồn
-2. Frontmatter theo Skill/Workflow file format (`../pk-shared/references/schemas.md`), gồm `promoted_from: [[slug-nguồn]]`
-3. Page nguồn: thêm "Đã nâng thành skill: [[slug-mới]]", giữ page (stub redirect)
-4. Cập nhật registry
-5. Cắt promote-candidate từ "Đang chờ xử lý" → "Đã xử lý"
-6. User bác bỏ → cắt phiếu: move các phiếu đó sang "Đã xử lý" kèm đánh dấu rejected. Chỉ gợi ý lại khi đủ act-threshold phiếu MỚI (không tính phiếu rejected cũ).
+1. **Recompute usage từ log** trước khi quyết định promote (công thức: `../pk-shared/references/metrics.md`, mục "Usage count (canonical)"). KHÔNG tin cột Usage trong index (cache-hint, có thể cũ).
+2. Tạo skill/workflow từ wiki page nguồn
+3. Frontmatter theo Skill/Workflow file format (`../pk-shared/references/schemas.md`), gồm `promoted_from: [[slug-nguồn]]`
+4. **Page nguồn: set frontmatter `status: stub` + `redirect_to: "[[slug-mới]]"`** (slug-mới là skill hoặc workflow đích). Đây là nguồn tất định cho snapshot và pk-consult. Có thể GIỮ thêm dòng marker body "Đã nâng thành skill: [[slug-mới]]" cho người đọc, nhưng frontmatter là nguồn tất định.
+5. Cập nhật registry (bao gồm cột Redirect trong knowledge/index.md)
+6. Cắt promote-candidate từ "Đang chờ xử lý" → "Đã xử lý"
+7. User bác bỏ → cắt phiếu: move các phiếu đó sang "Đã xử lý" kèm đánh dấu rejected. Chỉ gợi ý lại khi đủ act-threshold phiếu MỚI (không tính phiếu rejected cũ).
 
 ### Bước 6: Dọn inbox
 
@@ -124,12 +131,12 @@ Phát hiện (reflect/track) → inbox/ (domain=knowledge, type=lesson)
     └── Tool capability → knowledge/pattern-*.md
 ```
 
-Wiki → Skill promote (pipeline promote-candidate hợp nhất):
+Wiki → Skill/Workflow promote (pipeline promote-candidate hợp nhất):
 1. Trigger DUY NHẤT: page đạt act-threshold `promote-candidate` trong `schema-signals.md`
 2. Tiêu chí + ngưỡng canonical: `../pk-shared/references/schemas.md`, mục "Promote criteria" và "Bảng ngưỡng emit/act"
-3. `usage_count` KHÔNG phải trigger. Chỉ là bằng chứng phụ trình kèm khi duyệt.
-4. User duyệt tại Bước 5.5 → nội dung sang skills/ hoặc workflows/, page gốc thành stub redirect
-5. pk-consult tìm stub → tự redirect sang skill
+3. `usage_count` KHÔNG phải trigger. Chỉ là bằng chứng phụ; recompute từ log trước khi trình, KHÔNG dùng cột index.
+4. User duyệt tại Bước 5.5 → nội dung sang skills/ hoặc workflows/, page gốc set `status: stub` + `redirect_to: "[[slug-mới]]"` ở frontmatter (bao cả đích là skill lẫn workflow)
+5. pk-consult phát hiện stub qua frontmatter `status: stub` / `redirect_to` → tự redirect sang đích
 
 ## Quy tắc cứng
 

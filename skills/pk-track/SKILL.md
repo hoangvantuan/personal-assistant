@@ -74,7 +74,11 @@ Bảng thay đổi. User confirm.
 | `resource` | Hỏi user: link vào action notes hoặc đổi domain=knowledge |
 | `thought` | Hỏi user: chuyển thành action, đổi domain, hoặc discard |
 
-Set `status: processed` hoặc `discarded`. Move item sang `archive/inbox/`.
+**resource đổi domain=knowledge**: chỉ set field `domain: knowledge` ngay trong file, giữ nguyên file trong `inbox/`. **KHÔNG set `status: processed`, KHÔNG move sang archive.** pk-distill sẽ tự nhặt item này khi quét `inbox/ domain=knowledge, status=pending`.
+
+**Item có `related_inbox`** (cặp domain=both): khi xử lý item execution, đọc `related_inbox` để biết item cặp (domain=knowledge). Thông báo cho user biết item cặp cần được pk-distill xử lý nốt, tránh bỏ rơi nửa cặp.
+
+Set `status: processed` hoặc `discarded`. Move item sang `archive/inbox/` (TRỪ item resource vừa đổi sang domain=knowledge: không move, không set processed).
 
 ### Phase 6: Log + Tóm tắt
 

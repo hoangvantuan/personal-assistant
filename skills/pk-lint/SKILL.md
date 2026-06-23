@@ -18,9 +18,12 @@ Ranh giới: pk-analyze đếm số liệu tổng cho dashboard. pk-lint soi chi
 - skills/registry.md, workflows/registry.md: tương tự.
 
 **2. Link integrity**
-- Quét mọi cross-reference nội bộ cockpit: `[[slug]]`, `[text](path)`, frontmatter `related`, `source_file`
+- Quét mọi cross-reference nội bộ cockpit: `[[slug]]`, `[text](path)`, frontmatter `related`, `source_file`, frontmatter `skills_used: [...]` của workflow, marker `→ Skill: [[X]]` trong procedure block
 - Resolve: tìm file `{type}-{slug}.md` trong knowledge/, skills/, workflows/. Kiểm tra path đích tồn tại.
-- Link hỏng → báo cụ thể (file nguồn, dòng, link hỏng, lý do)
+- **Link mồ côi** (trỏ tới slug đã gộp/deprecate/archive): báo cụ thể file nguồn + tham chiếu hỏng. Đây là lưới an toàn cho sau khi pk-distill grep-rewrite inbound link.
+- **Slug trùng** (2 file khác type cùng slug): báo vi phạm bất biến unique-slug (canonical: `../pk-shared/references/schemas.md`, mục "Bất biến unique-slug").
+- **Skill con không tồn tại/archive**: khi `skills_used` hoặc `→ Skill: [[X]]` trỏ tới skill đã archive hoặc không tồn tại, báo cụ thể file nguồn + tham chiếu hỏng.
+- Link hỏng khác → báo cụ thể (file nguồn, dòng, link hỏng, lý do)
 
 **3. Frontmatter check** (spec: ../pk-shared/references/schemas.md)
 - Mọi page: `type`, `title`, `status`, `updated`
@@ -72,11 +75,13 @@ Trình report → user duyệt → thực thi thay đổi.
 ### Sub-mode: rebuild-index
 
 Sinh lại file dẫn xuất từ nguồn gốc (frontmatter + log), format theo spec ../pk-shared/references/schemas.md:
-1. Quét knowledge/*.md → sinh knowledge/index.md
+1. Quét knowledge/*.md → sinh knowledge/index.md (bao gồm cột Redirect từ frontmatter `redirect_to`)
 2. Quét skills/*.md → sinh skills/registry.md
 3. Quét workflows/*.md → sinh workflows/registry.md
 
-Cột Usage tái dẫn xuất từ log theo công thức ../pk-shared/references/metrics.md mục "Usage count (canonical)". Fallback: log thiếu thì giữ giá trị Usage cũ trong index. Cả frontmatter lẫn log đều thiếu thì để 0.
+Cột Usage tái dẫn xuất từ log theo công thức ../pk-shared/references/metrics.md mục "Usage count (canonical)". Fallback: log thiếu thì giữ giá trị Usage cũ trong index. Cả frontmatter lẫn log đều thiếu thì để 0. Cột Usage là cache-hint; log là SOT (xem ../pk-shared/references/sot-ownership.md).
+
+Cột Redirect: lấy từ frontmatter `redirect_to`. Rỗng nếu không có hoặc status không phải stub.
 
 ### Sub-mode: restore
 

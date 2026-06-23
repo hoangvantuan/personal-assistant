@@ -33,7 +33,7 @@ Auto-detect mode dựa ngữ cảnh:
 
 ### Bước 2: Tổng hợp câu trả lời
 
-- Gặp stub redirect, marker "Đã nâng thành skill: [[slug-mới]]" → đọc bản đích
+- Gặp page có `status: stub` hoặc `redirect_to` trong frontmatter (đọc được từ cột Redirect trong index, snapshot đã preload) → đọc bản đích tại `redirect_to`. Đích có thể là skill hoặc workflow. Ưu tiên đọc frontmatter/index, không cần mở body page nguồn.
 - Trả lời trực tiếp từ page
 - Trích dẫn `[[slug]]`
 - Không có → "chưa có knowhow về việc này"
@@ -73,7 +73,7 @@ Query: [câu hỏi rút gọn], match: [[slug-1]], [[slug-2]]
 
 Mở file skill/workflow. Đọc HẾT nội dung.
 
-Gặp page có marker "Đã nâng thành skill: [[slug-mới]]" (stub redirect) → đọc và dùng bản đích thay vì stub.
+Gặp page có `status: stub` hoặc `redirect_to` trong frontmatter (phát hiện từ cột Redirect trong index) → đọc và dùng bản đích (`redirect_to`). Đích có thể là skill hoặc workflow.
 
 ### Nhịp 3: Làm theo
 
