@@ -58,7 +58,7 @@ Hỏi user: KR.current? Action status?
 
 ### Phase 3: Confirm
 
-Bảng thay đổi. User confirm.
+Bảng thay đổi. Trước khi trình bảng confirm, áp Quality Gate (`../pk-shared/references/quality-gate.md`) cho input số liệu KR/KI current từ user (3 câu nội bộ: đủ cụ thể, giả định ẩn, mâu thuẫn). User confirm.
 
 ### Phase 4: Ghi
 
@@ -76,7 +76,7 @@ Bảng thay đổi. User confirm.
 
 | Inbox type | Xử lý |
 | --- | --- |
-| `action` | Delegate pk-plan (tạo action) |
+| `action` | Delegate pk-plan **pre_confirmed** (user đã duyệt trong flow track; theo Delegate Protocol tại `../pk-shared/references/cross-call-rules.md`) |
 | `blocker` | Tự ghi (sửa action.status = blocked) |
 | `resource` | Hỏi user: link vào action notes hoặc đổi domain=knowledge |
 | `thought` | Hỏi user: chuyển thành action, đổi domain, hoặc discard |

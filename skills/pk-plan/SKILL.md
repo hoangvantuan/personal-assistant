@@ -43,6 +43,7 @@ SOT chính: `plan.md` và `actions/`.
 - Effort xl → BẮT BUỘC Checkpoints hoặc tách.
 - Confirm bảng trước ghi. Render Roadmap sau ghi.
 - Quality Gate (`../pk-shared/references/quality-gate.md`): 3 câu trước mỗi follow-up.
+- **Capacity / xung đột tài nguyên**: khi tạo hoặc sửa action, đối chiếu capacity và xung đột tài nguyên theo `../pk-shared/references/metrics.md` mục "Capacity / xung đột tài nguyên". Không chép công thức; trỏ canonical.
 
 ## Tích hợp tri thức (Plan → Consult)
 
@@ -78,8 +79,11 @@ Thực hiện:
 
 Nhận payload từ pk-track (mọi mode, user đã duyệt trong flow track). Theo delegate protocol tại `../pk-shared/references/cross-call-rules.md`:
 1. Hiển thị block lý do + diff
-2. Ghi ngay (skip confirm)
-3. Kèm `(Đã được confirm tại track. Ghi ngay.)`
+2. Ánh xạ `payload.changes` (mảng `{field, from, to}`) vào file tương ứng:
+   - field thuộc action (title, due_date, deps, effort, priority, DoD) → ghi vào `actions/{action-id}.md`
+   - field thuộc milestones, counters → ghi vào `plan.md`
+3. Ghi ngay (skip confirm)
+4. Kèm `(Đã được confirm tại track. Ghi ngay.)`
 
 ## Quy tắc
 

@@ -29,7 +29,7 @@ SOT chính: `objective.md` và `tools.md`.
 ## Nguyên tắc
 
 - Hỏi từng câu một, không hàng loạt.
-- BẮT BUỘC confirm bảng trước ghi.
+- BẮT BUỘC confirm bảng trước ghi. **Ngoại lệ**: khi nhận payload `pre_confirmed: true` từ pk-track (delegate protocol), SKIP confirm, ghi ngay; vẫn hiển thị block lý do + diff + `(Đã được confirm tại track. Ghi ngay.)`. Xem Delegate Protocol tại `../pk-shared/references/cross-call-rules.md`.
 - Quality Gate 3 câu trước mỗi follow-up (`../pk-shared/references/quality-gate.md`).
 - **Snapshot Contract** (`../pk-shared/references/snapshot-contract.md`):
   - Mode `new`: KHÔNG ensure snapshot (.cockpit/ chưa tồn tại, đây là bước tạo cấu trúc). Marker `SNAPSHOT_LOADED` chưa cần.
@@ -105,7 +105,7 @@ Nội dung: hướng dẫn đọc `.cockpit/` khi bắt đầu session.
 
 ## Quy tắc
 
-- KHÔNG ghi file trước confirm.
+- KHÔNG ghi file trước confirm (trừ pre_confirmed: xem Ngoại lệ ở Nguyên tắc).
 - KR không SMART → chỉ rõ thiếu gì + gợi ý sửa.
 - Không tạo plan.md hay action files (việc pk-plan).
 - Không sửa action status (việc pk-track).

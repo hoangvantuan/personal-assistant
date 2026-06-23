@@ -1,6 +1,8 @@
-# Quality Gate (shared cho pk-init + pk-plan)
+# Quality Gate (cổng ghi SOT: pk-init, pk-plan, pk-track)
 
-Mỗi khi user trả lời 1 câu hỏi từ skill (init: tạo objective/KR/resource; plan: chọn action/effort), agent tự kiểm tra 3 câu **không hiển thị cho user**:
+Quality Gate là cổng kiểm soát trước khi ghi dữ liệu vào SOT. Áp dụng cho mọi skill GHI SOT từ input user: **pk-init** (tạo objective/KR/KI), **pk-plan** (tạo action/effort), **pk-track** (ghi KR current/KI current). Capture và reflect chỉ ghi vào inbox (staging), KHÔNG phải SOT trực tiếp, nên KHÔNG bắt buộc Quality Gate đầy đủ; QG áp khi item vào SOT (lúc pk-track/pk-distill xử lý).
+
+Mỗi khi user trả lời 1 câu hỏi từ skill, agent tự kiểm tra 3 câu **không hiển thị cho user**:
 
 1. **Đủ cụ thể?** Câu trả lời có thể chuyển thành KR/KI đo được (init) hoặc action có deliverable rõ (plan) không?
 2. **Giả định ẩn?** User có bỏ qua constraint quan trọng (capacity, deadline, dependency)? Đặc biệt: đầu vào đã verify từ source đáng tin chưa (external system, user confirm, dữ liệu thật)?
