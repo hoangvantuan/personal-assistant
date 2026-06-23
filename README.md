@@ -99,7 +99,7 @@ Bạn cũng có thể gọi trực tiếp từng skill (ví dụ `/pk-capture`, 
 
 ## Luồng dữ liệu
 
-File [flows reference](skills/pk-harness/references/flows.md) chứa 11 sơ đồ sequence (Mermaid) mô tả mọi luồng tương tác chính: dashboard, tracking, deep review, capture, distill, consult, reflect, lint.
+File [flows reference](skills/pk-harness/references/flows.md) chứa 12 sơ đồ sequence (Mermaid) mô tả mọi luồng tương tác chính: dashboard, tracking, deep review, capture, distill, consult, reflect, lint.
 
 ## Cấu trúc dự án
 

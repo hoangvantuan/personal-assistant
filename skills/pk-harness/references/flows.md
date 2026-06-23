@@ -136,7 +136,7 @@ sequenceDiagram
     end
 ```
 
-## 10. Reflect flow (light)
+## 9. Reflect flow (light)
 
 ```mermaid
 sequenceDiagram
@@ -151,7 +151,7 @@ sequenceDiagram
     H->>U: Báo cáo + gợi ý distill
 ```
 
-## 9. Reflect flow (deep AAR)
+## 10. Reflect flow (deep AAR)
 
 ```mermaid
 sequenceDiagram
