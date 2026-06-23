@@ -27,7 +27,7 @@ SOT chính: `plan.md` và `actions/`.
 | File | Fields |
 | --- | --- |
 | plan.md | Milestones, counters (khi tạo), re-render Roadmap (view dẫn xuất) |
-| actions/*.md | title, due_date, deps, effort, priority, DoD, notes |
+| actions/*.md | title, due_date, deps, key_result, milestone, effort, priority, DoD, notes |
 
 > Subset của `../pk-shared/references/sot-ownership.md`.
 
@@ -61,10 +61,12 @@ Thực hiện:
 2. Đọc tools.md (tools khả dụng)
 3. Hỏi milestones + timeline
 4. Mỗi milestone: hỏi actions, Quality Gate mỗi follow-up
-5. Tích hợp tri thức: pk-consult tìm knowledge liên quan
-6. Confirm bảng tổng
-7. Ghi plan.md + actions/*.md
-8. Render Roadmap
+5. Với mỗi action: gắn `key_result` (bắt buộc) và `milestone` (nếu có). Action không neo được vào KR nào → cảnh báo và hỏi user xác nhận trước khi giữ lại.
+6. Verify sequence action ID: khi sinh AXXX mới, kiểm tra gap trong dãy ID hiện có (ví dụ A003 → A005 thiếu A004). Nếu có khoảng trống, hỏi user xác nhận trước khi gán số tiếp.
+7. Tích hợp tri thức: pk-consult tìm knowledge liên quan
+8. Confirm bảng tổng
+9. Ghi plan.md + actions/*.md
+10. Render Roadmap
 
 ## Flow: mode update
 
@@ -72,8 +74,9 @@ Thực hiện:
 2. Hỏi user thay đổi gì
 3. Quality Gate
 4. Tích hợp tri thức cho action mới
-5. Confirm diff
-6. Ghi + re-render Roadmap
+5. Với action mới: gắn `key_result` (bắt buộc) và `milestone` (nếu có). Verify sequence action ID (kiểm gap như mode new bước 6).
+6. Confirm diff
+7. Ghi + re-render Roadmap
 
 ## Flow: mode pre-confirmed
 

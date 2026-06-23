@@ -10,7 +10,7 @@ Mỗi field SOT chỉ được sửa bởi skill được chỉ định. pk-trac
 | tools.md | `pk-init` |
 | plan.md (milestones) | `pk-plan` |
 | plan.md (Roadmap: view dẫn xuất từ actions/) | `pk-plan`, `pk-track` (re-render) |
-| actions/*.md (cấu trúc: title, due_date, deps) | `pk-plan` |
+| actions/*.md (cấu trúc: title, due_date, deps, key_result, milestone) | `pk-plan` |
 | actions/*.md (status, completed_date, current values) | `pk-track` |
 | KR/KI current, plan counters | `pk-track` |
 | inbox/ (tạo) | `pk-capture` |

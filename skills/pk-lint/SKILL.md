@@ -47,6 +47,7 @@ Ranh giới: pk-analyze đếm số liệu tổng cho dashboard. pk-lint soi chi
 
 **5. Reachability audit**
 - File trong `.cockpit/` không neo vào SOT → báo mồ côi. Bảng neo SOT canonical: `../pk-shared/references/snapshot-contract.md` mục "Reachability khi ghi". Không chép bảng; trỏ về.
+- **Orphan-action**: action có `key_result` null/rỗng, hoặc `key_result` trỏ tới KR không tồn tại trong objective.md → báo `orphan-action` kèm action ID và lý do cụ thể (thiếu field vs. KR không tồn tại).
 
 **6. Knowledge health metrics**
 - Page count, freshness, orphans, usage distribution theo ../pk-shared/references/metrics.md, KHÔNG chép công thức
@@ -60,7 +61,7 @@ Ranh giới: pk-analyze đếm số liệu tổng cho dashboard. pk-lint soi chi
 ### Link hỏng (N)
 ### Thiếu frontmatter (N)
 ### Inbox tồn đọng (N)
-### Reachability (N)
+### Reachability (N) — bao gồm orphan-action (N)
 ### Knowledge metrics
 
 ✅ Không có vấn đề (nếu clean)
