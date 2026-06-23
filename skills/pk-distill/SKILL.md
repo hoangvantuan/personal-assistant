@@ -12,7 +12,7 @@ description: "Đúc kết inbox thành tri thức có cấu trúc: knowledge pag
 1. `.cockpit/` tồn tại.
 2. Có ít nhất 1 trong 2 nguồn việc:
    - (1) `inbox/` có item `domain: knowledge`, `status: pending`.
-   - (2) Có page đạt >= 3 phiếu `promote-candidate` trong `schema-signals.md`.
+   - (2) Có page đạt act-threshold `promote-candidate` trong `schema-signals.md` (ngưỡng canonical: `../pk-shared/references/schemas.md`, mục "Bảng ngưỡng emit/act").
 3. Cả hai rỗng → "Không có gì để đúc kết." Dừng.
 4. Chỉ có (2) → chạy nhánh promote-only: Bước 1 → 1.5 → 4 → 5.5 → 7.
 
@@ -41,7 +41,7 @@ description: "Đúc kết inbox thành tri thức có cấu trúc: knowledge pag
 Đọc `schema-signals.md`, lấy dòng `promote-candidate` trong "Đang chờ xử lý".
 - Chạy cả khi inbox rỗng (nhánh promote-only)
 - Gom theo slug, đếm phiếu
-- **Ngưỡng: >= 3 phiếu cùng slug** → ứng viên promote
+- Đạt act-threshold của `promote-candidate` (canonical: `../pk-shared/references/schemas.md`, mục "Bảng ngưỡng emit/act") → ứng viên promote
 - Dưới ngưỡng → để lại
 - Trình ứng viên kèm Usage từ `knowledge/index.md` làm BẰNG CHỨNG PHỤ, không phải ngưỡng
 
@@ -73,8 +73,8 @@ Trình đề xuất:
 Phát hiện "khuôn không vừa" → ghi `schema-signals.md`. Ngưỡng emit/act canonical: `../pk-shared/references/schemas.md`, mục "Bảng ngưỡng emit/act".
 
 - `no-fit-type`: item không vừa 6 wiki types
-- `adhoc-section`: section ngoài format chuẩn (`../pk-shared/references/schemas.md`) VÀ ngoài `SCHEMA.md` (template đã evolve), lặp >= 2 page cùng type. Section `## Mâu thuẫn đang mở` thuộc format chuẩn, KHÔNG tính.
-- `term-repeat`: thuật ngữ lặp >= 2 page (cung cấp dữ liệu cho pk-lint evolve thêm glossary thay cho "quét sống"). Ghi thêm trường `term: "<thuật-ngữ>"` vào phiếu.
+- `adhoc-section`: section ngoài format chuẩn (`../pk-shared/references/schemas.md`) VÀ ngoài `SCHEMA.md` (template đã evolve), lặp đạt emit-threshold cùng type. Section `## Mâu thuẫn đang mở` thuộc format chuẩn, KHÔNG tính.
+- `term-repeat`: thuật ngữ lặp đạt emit-threshold (cung cấp dữ liệu cho pk-lint evolve thêm glossary thay cho "quét sống"). Ghi thêm trường `term: "<thuật-ngữ>"` vào phiếu.
 
 ### Bước 4: User duyệt
 
@@ -96,7 +96,7 @@ Từng item: đồng ý / sửa / bác bỏ.
 3. Page nguồn: thêm "Đã nâng thành skill: [[slug-mới]]", giữ page (stub redirect)
 4. Cập nhật registry
 5. Cắt promote-candidate từ "Đang chờ xử lý" → "Đã xử lý"
-6. User bác bỏ → cắt phiếu: move các phiếu đó sang "Đã xử lý" kèm đánh dấu rejected. Chỉ gợi ý lại khi đủ 3 phiếu MỚI.
+6. User bác bỏ → cắt phiếu: move các phiếu đó sang "Đã xử lý" kèm đánh dấu rejected. Chỉ gợi ý lại khi đủ act-threshold phiếu MỚI (không tính phiếu rejected cũ).
 
 ### Bước 6: Dọn inbox
 
@@ -125,8 +125,8 @@ Phát hiện (reflect/track) → inbox/ (domain=knowledge, type=lesson)
 ```
 
 Wiki → Skill promote (pipeline promote-candidate hợp nhất):
-1. Trigger DUY NHẤT: page đạt >= 3 phiếu `promote-candidate` trong `schema-signals.md`
-2. Tiêu chí canonical: `../pk-shared/references/schemas.md`, mục "Promote criteria"
+1. Trigger DUY NHẤT: page đạt act-threshold `promote-candidate` trong `schema-signals.md`
+2. Tiêu chí + ngưỡng canonical: `../pk-shared/references/schemas.md`, mục "Promote criteria" và "Bảng ngưỡng emit/act"
 3. `usage_count` KHÔNG phải trigger. Chỉ là bằng chứng phụ trình kèm khi duyệt.
 4. User duyệt tại Bước 5.5 → nội dung sang skills/ hoặc workflows/, page gốc thành stub redirect
 5. pk-consult tìm stub → tự redirect sang skill
