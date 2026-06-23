@@ -39,6 +39,8 @@ status: pending|processed|discarded
 
 pk-capture tách ngay lúc tạo thành 2 items riêng biệt, link nhau qua `related_inbox`. Item execution focus vào action/status. Item knowledge focus vào nội dung tri thức.
 
+**Tiêu chí phát hiện domain=both**: item là domain=both khi CÓ ĐỒNG THỜI (a) **động từ hành động có output** (tính execution) VÀ (b) **tri thức tái dùng được** (tính knowledge). Thiếu một trong hai thì chọn domain duy nhất phù hợp.
+
 **Hợp đồng 2 chiều**: khi tách cặp domain=both, pk-capture ghi `related_inbox` ở CẢ HAI item (item A trỏ item B, item B trỏ item A). Khi xử lý 1 item trong cặp, đọc `related_inbox` để biết item cặp; xử lý nốt hoặc đánh dấu liên đới tránh bỏ rơi nửa cặp.
 
 ## Objective file format
@@ -282,6 +284,14 @@ Cơ chế nâng wiki page thành skill/workflow:
 - Promote chỉ là GỢI Ý. User duyệt mới thực hiện (pk-distill Bước 5.5).
 - User bác bỏ → phiếu cũ bị cắt: move sang "Đã xử lý" kèm đánh dấu rejected. Chỉ gợi ý lại khi đủ 3 phiếu MỚI.
 
+### Hai đường tạo skill/workflow
+
+**Đường phiếu** (`promote-candidate`): NÂNG CẤP page **đã có**, đã chứng minh qua usage (đạt act-threshold, xem Bảng ngưỡng emit/act). Cơ chế: pk-distill Bước 1.5 phát hiện, Bước 5.5 thực thi.
+
+**Đường candidate** (inbox type `candidate-skill` / `candidate-workflow`): ý định **tạo mới chủ động** (không phải nâng page đã có). pk-distill tạo trực tiếp (qua user duyệt) CHỈ KHI đủ cả ba: `trigger` + `input` + `output` trong nội dung; thiếu bất kỳ trường nào → tự hạ xuống wiki `pattern` page để chờ chín, có thể lên phiếu sau.
+
+Hai đường KHÔNG giao: đường candidate không cần phiếu; đường phiếu không cần inbox candidate.
+
 ## Knowledge index format
 
 ```markdown
@@ -294,6 +304,27 @@ Cơ chế nâng wiki page thành skill/workflow:
 `Pinned` (true/false) và `Usage` là giá trị dẫn xuất. Pinned lấy từ frontmatter `pinned` của page. Usage tính từ log theo công thức tại `metrics.md`, mục "Usage count (canonical)". **Usage trong index là cache-hint, CÓ THỂ CŨ**; log là SOT thực (xem `sot-ownership.md` và `metrics.md`). Không dùng cột Usage trong index để ra quyết định promote: luôn recompute từ log.
 
 `Redirect`: giá trị `[[đích]]` khi `status=stub`, rỗng nếu không. Snapshot đọc cột này để biết đích redirect ngay mà không cần mở body. Cột này được pk-lint rebuild-index sinh từ frontmatter `redirect_to` của page.
+
+## Procedure block
+
+Khối bước chuẩn để **Run** được. Định nghĩa canonical duy nhất tại đây; pk-consult Run và Promote criteria đều trỏ về mục này.
+
+### Cấu trúc
+
+Procedure block gồm:
+- Các **bước tuần tự đánh số** (ví dụ: `1. Bước đầu tiên`)
+- **Điều kiện rẽ nhánh** khi có (ví dụ: `Nếu X → Bước 3; ngược lại → Bước 4`)
+- Marker **`→ Skill: [[X]]`** khi một bước ủy thác sang skill con (dùng trong workflow)
+
+### Ràng buộc bắt buộc
+
+- **Workflow**: procedure block là **body BẮT BUỘC**. Workflow không có procedure block là **không hợp lệ**: không thể Run, không thể promote.
+- **Skill**: procedure block KHÔNG bắt buộc trong mọi skill; tuy nhiên skill/workflow không có procedure block sẽ bị báo "mới mô tả, chưa có quy trình" khi Run (xem pk-consult Mode Run).
+- **Wiki page** (pattern/troubleshooting/lesson): được phép xuất hiện procedure block trong `## Cách dùng`, không bắt buộc.
+
+### Ràng buộc Run/promote
+
+Chỉ Run hoặc promote được target **CÓ** procedure block. Thiếu → KHÔNG bịa quy trình, báo "mới mô tả, chưa có quy trình" và dừng.
 
 ## Skill/Workflow file format
 
