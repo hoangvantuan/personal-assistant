@@ -63,7 +63,9 @@ Mỗi item:
    grep -ril "<từ khoá>" .cockpit/knowledge .cockpit/skills .cockpit/workflows
    ```
 3. **Quyết định hành động** (bảng trên)
-4. **Item type lesson**: "Hành động hệ thống" phải sinh đề xuất KÈM
+4. **Item type lesson**: "Hành động hệ thống" phải sinh đề xuất KÈM. Đích bàn giao:
+   - Nếu mang tính execution (tạo task, thay đổi action cụ thể): bàn giao **pk-capture** tạo inbox item `domain=execution` (giữ bất biến "một cửa inbox"; cross-call hợp lệ theo `../pk-shared/references/cross-call-rules.md`).
+   - Nếu là đề xuất sửa skill/schema/quy ước hệ thống: trình trực tiếp cho user quyết định, không tự thực thi.
 
 **Phân loại chi tiết theo type:**
 

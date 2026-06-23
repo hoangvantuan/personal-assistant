@@ -46,7 +46,7 @@ Ranh giới: pk-analyze đếm số liệu tổng cho dashboard. pk-lint soi chi
 - Phân execution vs knowledge.
 
 **5. Reachability audit**
-- File trong `.cockpit/` không neo vào SOT → báo mồ côi.
+- File trong `.cockpit/` không neo vào SOT → báo mồ côi. Bảng neo SOT canonical: `../pk-shared/references/snapshot-contract.md` mục "Reachability khi ghi". Không chép bảng; trỏ về.
 
 **6. Knowledge health metrics**
 - Page count, freshness, orphans, usage distribution theo ../pk-shared/references/metrics.md, KHÔNG chép công thức
@@ -86,7 +86,7 @@ Sinh lại file dẫn xuất từ nguồn gốc (frontmatter + log), format theo
 2. Quét skills/*.md → sinh skills/registry.md
 3. Quét workflows/*.md → sinh workflows/registry.md
 
-Cột Usage tái dẫn xuất từ log theo công thức ../pk-shared/references/metrics.md mục "Usage count (canonical)". Fallback: log thiếu thì giữ giá trị Usage cũ trong index. Cả frontmatter lẫn log đều thiếu thì để 0. Cột Usage là cache-hint; log là SOT (xem ../pk-shared/references/sot-ownership.md).
+Cột Usage tái dẫn xuất từ log theo công thức ../pk-shared/references/metrics.md mục "Usage count (canonical)". Fallback: log thiếu thì giữ giá trị Usage cũ trong index; không có giá trị cũ thì để 0. (Usage được tính từ log, không phải frontmatter.) Cột Usage là cache-hint; log là SOT (xem ../pk-shared/references/sot-ownership.md).
 
 Cột Redirect: lấy từ frontmatter `redirect_to`. Rỗng nếu không có hoặc status không phải stub.
 

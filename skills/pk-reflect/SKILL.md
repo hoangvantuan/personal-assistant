@@ -49,7 +49,7 @@ Gọi pk-capture flow từ Bước 2 (trình candidates). Set `captured_from: re
 
 ### Bước 1: Lấy data
 
-Gọi pk-analyze (cross-call lớp 2 → lớp 4) lấy metrics, trends. Đọc log gần nhất.
+Gọi pk-analyze với `mode=deep, focus=full` (cross-call lớp 2 → lớp 4) lấy metrics, trends, root cause. Đọc log gần nhất.
 
 **Degraded** (khi `.cockpit/` có nhưng KHÔNG có objective hoặc plan, tức "pk-reflect deep degraded" theo `../pk-shared/references/snapshot-contract.md`, mục "Graceful Degradation"): phỏng vấn 5 câu VẪN chạy, nhưng bỏ phần metrics/trends (pk-analyze chỉ knowledge-only, data nghèo). Thông báo cho user biết mode degraded trước khi tiếp tục.
 

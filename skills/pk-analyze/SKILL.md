@@ -49,7 +49,7 @@ Quét theo nghiêm trọng:
 5. Checkpoint slip (effort xl)
 6. Inbox aging (> 30 ngày, phân execution vs knowledge)
 7. Capacity xung đột
-8. Knowledge health (mức số liệu, công thức tại `../pk-shared/references/metrics.md`): orphan count, index lệch, freshness thấp. Bất thường thì gợi ý chạy `pk-lint check`.
+8. Knowledge health (mức số liệu, công thức tại `../pk-shared/references/metrics.md`): orphan count, freshness thấp. Nghi ngờ index lệch → gợi ý chạy `pk-lint check` (registry sync là việc pk-lint, không phải metrics pk-analyze).
 
 ## Xếp priority (top N actions)
 
