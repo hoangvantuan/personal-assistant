@@ -1,6 +1,6 @@
 ---
 name: pk-distill
-description: "Đúc kết inbox thành tri thức có cấu trúc: knowledge page, skill, hoặc workflow. Ưu tiên cập nhật cái có sẵn hơn tạo mới. Dùng khi user nói 'đúc kết', 'xử lý inbox', 'gộp bài học thành wiki', 'promote', hoặc khi inbox knowledge đã tích đủ cần chưng cất thành tài liệu chính thức."
+description: "Đúc kết cả inbox knowledge thành tri thức có cấu trúc: knowledge page, skill, hoặc workflow. Ưu tiên cập nhật cái có sẵn hơn tạo mới. Dùng khi user nói 'đúc kết', 'xử lý inbox', 'gộp bài học thành wiki', 'promote', hoặc khi inbox knowledge đã tích đủ cần chưng cất thành tài liệu chính thức. KHÔNG dùng khi ghi nhanh 1 mẩu (dùng pk-capture) hoặc xử lý inbox execution (dùng pk-track)."
 ---
 
 # PK Distill: Đúc kết inbox knowledge → tri thức có cấu trúc

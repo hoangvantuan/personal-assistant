@@ -1,6 +1,6 @@
 ---
 name: pk-track
-description: "Cập nhật tiến độ và review dự án. Light: ghi nhận tiến độ KR/action hàng ngày. Deep: review sâu với root cause analysis khi có vấn đề. Inbox: xử lý inbox execution. Dùng khi user nói 'cập nhật tiến độ', 'xong task X', 'review sâu', 'tại sao chậm', hoặc cần xử lý inbox execution. Skill này ghi TIẾN ĐỘ, không sửa CẤU TRÚC kế hoạch (dùng pk-plan)."
+description: "Xử lý inbox execution và cập nhật KR current (tiến độ thực tế). Light: ghi nhận tiến độ KR/action hàng ngày. Deep: review sâu với root cause analysis. Inbox: xử lý inbox execution. Dùng khi user nói 'cập nhật tiến độ', 'xong task X', 'review sâu', 'tại sao chậm', hoặc cần xử lý inbox execution. KHÔNG dùng khi xử lý inbox knowledge (dùng pk-distill) hoặc sửa KR target/mục tiêu/cấu trúc kế hoạch (dùng pk-init hoặc pk-plan)."
 ---
 
 # PK Track: Track + Review + Inbox Execution

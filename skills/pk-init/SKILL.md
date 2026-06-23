@@ -1,6 +1,6 @@
 ---
 name: pk-init
-description: "Khởi tạo dự án mới hoặc cập nhật mục tiêu, KR, KI, constraints, công cụ. Tạo cấu trúc .cockpit/ lần đầu. Dùng khi user bắt đầu dự án từ đầu, sửa OKR, thêm/bớt công cụ, thay đổi constraints, hoặc cần thiết lập lại mục tiêu."
+description: "Khởi tạo dự án mới hoặc sửa KR target/mục tiêu/constraints/tools (cấu trúc mục tiêu). Tạo cấu trúc .cockpit/ lần đầu. Dùng khi user bắt đầu dự án từ đầu, sửa OKR, thêm/bớt công cụ, thay đổi constraints, hoặc cần thiết lập lại mục tiêu. KHÔNG dùng khi cập nhật KR current tiến độ hàng ngày (dùng pk-track)."
 ---
 
 # PK Init: Khởi tạo + cập nhật objective, tools, constraints

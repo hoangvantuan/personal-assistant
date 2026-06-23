@@ -1,6 +1,6 @@
 ---
 name: pk-reflect
-description: "Rút bài học từ phiên làm việc hoặc sự kiện. Light (mặc định): quét nhanh phiên, trích bài học. Deep: phỏng vấn AAR 5 câu chuyên sâu. Dùng khi user nói 'rút bài học', 'retro', 'tổng kết phiên', 'rút kinh nghiệm', 'AAR', hoặc vừa kết thúc một giai đoạn và muốn nhìn lại. Output đi vào inbox qua pk-capture."
+description: "Rút bài học từ cả phiên làm việc (quét toàn bộ hội thoại). Light (mặc định): quét nhanh phiên, trích bài học. Deep: phỏng vấn AAR 5 câu chuyên sâu. Dùng khi user nói 'rút bài học', 'retro', 'tổng kết phiên', 'rút kinh nghiệm', 'AAR', hoặc vừa kết thúc một giai đoạn và muốn nhìn lại. Output đi vào inbox qua pk-capture. KHÔNG dùng khi chỉ ghi 1 mẩu rời (dùng pk-capture) hoặc đúc kết inbox đã tích (dùng pk-distill)."
 ---
 
 # PK Reflect: Rút bài học

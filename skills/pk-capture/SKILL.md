@@ -1,6 +1,6 @@
 ---
 name: pk-capture
-description: "Ghi nhanh ý tưởng, bài học, task vào inbox. Tự phân loại execution hay knowledge. Dùng khi user nói 'ghi lại', 'note', 'nhớ cái này', 'lưu bài học', 'thêm vào inbox', 'ghi chú', hoặc bất kỳ lúc nào cần bắt một mẩu thông tin nhanh mà chưa cần xử lý ngay."
+description: "Ghi nhanh 1 mẩu rời (ý tưởng, bài học, task) vào inbox. Tự phân loại execution hay knowledge. Dùng khi user nói 'ghi lại', 'note', 'nhớ cái này', 'lưu bài học', 'thêm vào inbox', 'ghi chú', hoặc bất kỳ lúc nào cần bắt một mẩu thông tin nhanh mà chưa cần xử lý ngay. KHÔNG dùng khi cần quét cả phiên làm việc (dùng pk-reflect) hoặc đúc kết cả inbox (dùng pk-distill)."
 ---
 
 # PK Capture: Ghi nhanh vào inbox thống nhất
