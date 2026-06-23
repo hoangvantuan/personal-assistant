@@ -96,14 +96,14 @@ Nội dung: hướng dẫn đọc `.cockpit/` khi bắt đầu session.
 2. Hỏi user thay đổi gì
 3. Quality Gate mỗi follow-up
 4. Confirm bảng diff
-5. Ghi file
+5. Trước khi ghi đè body: đọc body hiện tại (bất biến: `../pk-shared/references/snapshot-contract.md`, mục "Bất biến đọc body trước khi ghi body"). Ghi file.
 
 ## Flow: mode update-tools
 
 1. Đọc tools.md hiện tại
 2. Hỏi user thay đổi gì
 3. Confirm
-4. Ghi file
+4. Trước khi ghi đè body: đọc body hiện tại (bất biến: `../pk-shared/references/snapshot-contract.md`, mục "Bất biến đọc body trước khi ghi body"). Ghi file.
 
 ## Quy tắc
 

@@ -76,13 +76,13 @@ Thực hiện:
 4. Tích hợp tri thức cho action mới
 5. Với action mới: gắn `key_result` (bắt buộc) và `milestone` (nếu có). Verify sequence action ID (kiểm gap như mode new bước 6).
 6. Confirm diff
-7. Ghi + re-render Roadmap
+7. Trước khi ghi đè body: đọc body hiện tại (bất biến: `../pk-shared/references/snapshot-contract.md`, mục "Bất biến đọc body trước khi ghi body"). Ghi + re-render Roadmap.
 
 ## Flow: mode pre-confirmed
 
 Nhận payload từ pk-track (mọi mode, user đã duyệt trong flow track). Theo delegate protocol tại `../pk-shared/references/cross-call-rules.md`:
 1. Hiển thị block lý do + diff
-2. Ánh xạ `payload.changes` (xem payload format tại `../pk-shared/references/cross-call-rules.md` Delegate Protocol) vào file tương ứng:
+2. Trước khi ghi đè body: đọc body hiện tại của file đích (bất biến: `../pk-shared/references/snapshot-contract.md`, mục "Bất biến đọc body trước khi ghi body"). Ánh xạ `payload.changes` (xem payload format tại `../pk-shared/references/cross-call-rules.md` Delegate Protocol) vào file tương ứng:
    - field thuộc action (title, due_date, deps, effort, priority, DoD) → ghi vào `actions/{action-id}.md`
    - field thuộc milestones, counters → ghi vào `plan.md`
 3. Ghi ngay (skip confirm)

@@ -192,7 +192,7 @@ title: "..."
 tags: [...]
 related: [...]
 status: active|deprecated|archived|stub
-redirect_to: "[[đích]]"
+redirect_to: "[[đích]]"   # optional, chỉ khi status: stub
 confidence: low|medium|high
 pinned: false
 updated: YYYY-MM-DD

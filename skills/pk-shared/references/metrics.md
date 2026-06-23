@@ -63,7 +63,7 @@ First match, 1 dòng tối đa:
 | # | Điều kiện | Thông báo |
 | --- | --- | --- |
 | 1 | `last_track_date` is null | "Chưa track lần nào." |
-| 2 | Qua nửa period, chưa review | "Đã qua nửa period, chưa review." |
+| 2 | `today > start_date + (end_date - start_date)/2` VÀ `last_review_date is null` | "Đã qua nửa period, chưa review." |
 | 3 | Chưa track > 14 ngày | "Chưa track 2 tuần." |
 
 **Ongoing:**

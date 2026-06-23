@@ -69,7 +69,7 @@ Snapshot xong → **đặt marker `SNAPSHOT_LOADED`** (theo Snapshot Contract, m
 | | "track / cập nhật" | `pk-analyze` → `pk-track` light |
 | | "review sâu / phân tích sâu" | `pk-analyze` deep → `pk-track` deep |
 | | "capture / ghi nhanh / note" | `pk-capture` |
-| | "inbox" | `pk-track` inbox-only (execution) HOẶC `pk-distill` (knowledge); cả hai domain → xem "Inbox routing đặc biệt" |
+| | "inbox" | `pk-track` inbox-only (execution) HOẶC `pk-distill` (knowledge); cả hai domain → xem mục Inbox routing đặc biệt bên dưới |
 | | "rút bài học / retro" | `pk-reflect` light |
 | | "AAR / phỏng vấn sâu" | `pk-reflect` deep |
 | | "hỏi kho / tra cứu" | `pk-consult` query |

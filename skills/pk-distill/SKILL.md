@@ -99,7 +99,7 @@ Từng item: đồng ý / sửa / bác bỏ.
 
 ### Bước 5: Thực thi
 
-1. **Tạo/cập nhật page** theo format (`../pk-shared/references/schemas.md`)
+1. **Tạo/cập nhật page** theo format (`../pk-shared/references/schemas.md`). Khi CẬP NHẬT hoặc GỘP page (ghi đè body page cũ): trước khi ghi, đọc body hiện tại (bất biến: `../pk-shared/references/snapshot-contract.md`, mục "Bất biến đọc body trước khi ghi body").
 2. **Cập nhật registry**: knowledge/index.md, skills/registry.md, workflows/registry.md
 3. **Cross-referencing**: `related: [...]` + `[[slug]]` links
 4. **Rewrite inbound link khi GỘP/deprecate**: grep ngược bắt buộc trước khi gộp/deprecate:

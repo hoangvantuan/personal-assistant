@@ -83,7 +83,7 @@ Ranh giới: pk-analyze đếm số liệu tổng cho dashboard. pk-lint soi chi
 - Nhất quán thuật ngữ
 - Workflow dependency outdated
 
-Trình report → user duyệt → thực thi thay đổi.
+Trình report → user duyệt → thực thi thay đổi. Khi ghi đè nội dung page: trước khi ghi, đọc body hiện tại (bất biến: `../pk-shared/references/snapshot-contract.md`, mục "Bất biến đọc body trước khi ghi body").
 
 ### Sub-mode: rebuild-index
 
