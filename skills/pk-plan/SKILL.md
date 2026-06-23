@@ -79,7 +79,7 @@ Thực hiện:
 
 Nhận payload từ pk-track (mọi mode, user đã duyệt trong flow track). Theo delegate protocol tại `../pk-shared/references/cross-call-rules.md`:
 1. Hiển thị block lý do + diff
-2. Ánh xạ `payload.changes` (mảng `{field, from, to}`) vào file tương ứng:
+2. Ánh xạ `payload.changes` (xem payload format tại `../pk-shared/references/cross-call-rules.md` Delegate Protocol) vào file tương ứng:
    - field thuộc action (title, due_date, deps, effort, priority, DoD) → ghi vào `actions/{action-id}.md`
    - field thuộc milestones, counters → ghi vào `plan.md`
 3. Ghi ngay (skip confirm)
