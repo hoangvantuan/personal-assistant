@@ -61,7 +61,7 @@ Ranh giới: pk-analyze đếm số liệu tổng cho dashboard. pk-lint soi chi
 ### Link hỏng (N)
 ### Thiếu frontmatter (N)
 ### Inbox tồn đọng (N)
-### Reachability (N) — bao gồm orphan-action (N)
+### Reachability (N) (gồm orphan-action: N)
 ### Knowledge metrics
 
 ✅ Không có vấn đề (nếu clean)
