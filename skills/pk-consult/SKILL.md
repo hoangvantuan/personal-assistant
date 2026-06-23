@@ -40,9 +40,7 @@ Auto-detect mode dựa ngữ cảnh:
 
 ### Bước 3: Phát tín hiệu
 
-**query-miss** vào `schema-signals.md` khi:
-- Chắp >= 3 page mới trả lời được, HOẶC
-- KHÔNG page nào trả lời trực tiếp
+**query-miss** vào `schema-signals.md` khi đạt emit-threshold của `query-miss` (canonical: `../pk-shared/references/schemas.md`, mục "Bảng ngưỡng emit/act"): phải chắp nhiều page mới trả lời được, HOẶC không page nào trả lời trực tiếp.
 
 **promote-candidate** khi:
 - Câu hỏi thao tác ("làm sao...", "các bước...") VÀ
@@ -123,7 +121,7 @@ Trình cho user. Chỉ ghi ra file khi user chỉ định nơi lưu, lưu NGOÀI
 
 ### Bước 5: Phát hiện lỗ hổng
 
-Chủ đề quan trọng không có page, chuỗi học đứt quãng → báo user kèm danh sách thiếu, gợi ý capture/distill bổ sung. Emit `query-miss` nếu phải chắp >= 3 page.
+Chủ đề quan trọng không có page, chuỗi học đứt quãng → báo user kèm danh sách thiếu, gợi ý capture/distill bổ sung. Emit `query-miss` khi đạt emit-threshold của `query-miss` (canonical: `../pk-shared/references/schemas.md`, mục "Bảng ngưỡng emit/act").
 
 ### Usage log (mode teach)
 
