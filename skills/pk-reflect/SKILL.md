@@ -73,10 +73,11 @@ Hỏi TỪNG CÂU MỘT, chờ trả lời:
 
 ### Bước 4: Tổng hợp candidates
 
-Từ phỏng vấn, tách thành candidates:
-- 1 item `lesson` (lõi phiên)
-- 0-n item `decision` / `pattern` / `troubleshooting` / `concept`
-- 0-n item `candidate-skill` / `candidate-workflow` (từ câu 5)
+Từ phỏng vấn, tách thành candidates theo type trong `../pk-shared/references/schemas.md` mục "Inbox item thống nhất" (nguồn type DUY NHẤT):
+- 1 item `lesson` (lõi phiên, bắt buộc)
+- 0-n item thuộc bất kỳ type nào khả dĩ từ phỏng vấn (ví dụ: `decision`, `pattern`, `troubleshooting`, `concept`, `resource`, `blocker`, `candidate-skill`, `candidate-workflow`)
+
+Không liệt danh sách cứng ở đây. Mọi type hợp lệ đã định nghĩa trong schemas.md.
 
 ### Bước 5: Bàn giao pk-capture
 

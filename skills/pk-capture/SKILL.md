@@ -42,7 +42,9 @@ Phần tiêu chí domain trích từ `../pk-shared/references/schemas.md`. Khi l
 
 ### domain=both
 
-Khi item vừa có tính execution vừa có tính knowledge: tách ngay thành 2 items riêng biệt, link qua `related_inbox`. Item execution focus action/status. Item knowledge focus nội dung tri thức.
+**Tiêu chí phát hiện** (canonical: `../pk-shared/references/schemas.md`, mục "domain=both"): item là domain=both khi CÓ ĐỒNG THỜI (a) **động từ hành động có output** (tính execution) VÀ (b) **tri thức tái dùng được** (tính knowledge). Thiếu một trong hai thì chọn domain duy nhất phù hợp, không tách.
+
+Khi xác nhận domain=both: tách ngay thành 2 items riêng biệt, link qua `related_inbox`. Item execution focus action/status. Item knowledge focus nội dung tri thức.
 
 **Hợp đồng 2 chiều**: ghi `related_inbox` ở CẢ HAI item (item A điền tên file của item B, item B điền tên file của item A). Không để 1 chiều.
 

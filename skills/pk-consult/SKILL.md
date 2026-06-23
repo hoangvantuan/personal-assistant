@@ -82,11 +82,20 @@ Mở file skill/workflow. Đọc HẾT nội dung.
 
 Gặp page có `status: stub` hoặc `redirect_to` trong frontmatter (phát hiện từ cột Redirect trong index) → đọc và dùng bản đích (`redirect_to`). Đích có thể là skill hoặc workflow.
 
+**Kiểm procedure block**: sau khi load, kiểm xem target có procedure block không (canonical: `../pk-shared/references/schemas.md`, mục "Procedure block"). KHÔNG có procedure block → báo **"mới mô tả, chưa có quy trình"**, DỪNG, KHÔNG bịa các bước. Gợi ý user chạy pk-distill để bổ sung procedure block.
+
 ### Nhịp 3: Làm theo
 
-1. Thực hiện lần lượt các bước
+1. Thực hiện lần lượt các bước theo procedure block
 2. Workflow gặp `→ Skill: [[X]]` → load skill con, đệ quy
 3. Tôn trọng điều kiện rẽ nhánh
+
+### Error handling (đứt mạch khi Run)
+
+Hai trường hợp DỪNG ngay, báo lỗi cụ thể, KHÔNG bịa tiếp:
+
+- **Skill con không tồn tại / đã archive**: gặp `→ Skill: [[X]]` mà `[[X]]` không tìm thấy trong registry hoặc có `status: archived` → DỪNG, báo: "Bước [N]: skill con `[[X]]` không tồn tại hoặc đã archive. Không thể tiếp tục." Giữ mọi thay đổi đã ghi trước điểm lỗi.
+- **Bước lỗi runtime**: một bước gặp lỗi (thiếu input, tool fail, điều kiện không thỏa) → DỪNG, báo bước lỗi cụ thể kèm lý do. Giữ thay đổi đã ghi, không rollback tự động.
 
 ### Usage log (mode run)
 

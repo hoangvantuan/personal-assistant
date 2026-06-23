@@ -103,8 +103,9 @@ Bổ sung:
 
 | Param | Mặc định | Mô tả |
 | --- | --- | --- |
+| mode | light | `light`: dashboard tiêu chuẩn (không đọc log, không root cause). `mode=deep` bật phần "Mode deep" (đọc log, root cause >= 3 "tại sao?", tốc độ hoàn thành). |
 | focus | full | "full", "progress", "issues", "priority", "knowledge", "track" |
 | max_items | 2 (dashboard), 3 (track) | Số priority items |
 | horizon_days | 3 (dashboard), 7 (track) | Cửa sổ deadline |
 
-Ghi chú: `focus=track` (tracking nhẹ) chỉ tính progress + quét issues loại 1-3. Ngữ cảnh track dùng `max_items=3`, `horizon_days=7`.
+Ghi chú: `focus=track` (tracking nhẹ) chỉ tính progress + quét issues loại 1-3. Ngữ cảnh track dùng `max_items=3`, `horizon_days=7`. `mode` và `focus` là hai chiều độc lập: `mode` kiểm soát độ sâu phân tích, `focus` kiểm soát phạm vi hiển thị.

@@ -57,13 +57,23 @@ Khi item có `related_inbox` (cặp domain=both): đọc item cặp để hiểu
 ### Bước 3: Phân tích + đề xuất
 
 Mỗi item:
-1. **Phân loại**: knowledge page (6 types) hay skill hay workflow?
+1. **Phân loại** (theo thứ tự ưu tiên bên dưới)
 2. **Tìm trùng** (grep nội dung thật):
    ```bash
    grep -ril "<từ khoá>" .cockpit/knowledge .cockpit/skills .cockpit/workflows
    ```
 3. **Quyết định hành động** (bảng trên)
 4. **Item type lesson**: "Hành động hệ thống" phải sinh đề xuất KÈM
+
+**Phân loại chi tiết theo type:**
+
+- **Type `thought`**: KHÔNG phải type lưu trữ cuối. Re-classify vào 1 trong 6 wiki type (`decision` / `pattern` / `concept` / `troubleshooting` / `lesson` / `resource`) hoặc discard nếu không đủ giá trị. KHÔNG tạo knowledge page type=thought.
+
+- **Type `candidate-skill` / `candidate-workflow`** (đường candidate, canonical: `../pk-shared/references/schemas.md`, mục "Hai đường tạo skill/workflow"): đi đường candidate độc lập, KHÔNG cần phiếu `promote-candidate`. Kiểm: có đủ `trigger` + `input` + `output` không?
+  - Đủ cả ba → đề xuất tạo skill/workflow trực tiếp kèm procedure block (canonical: `../pk-shared/references/schemas.md`, mục "Procedure block"). Cần user duyệt trước khi tạo.
+  - Thiếu bất kỳ trường nào → hạ xuống tạo wiki `pattern` page thay thế. Ghi chú "chờ chín, có thể lên phiếu promote-candidate sau".
+
+  **Phân biệt rõ với đường phiếu**: đường phiếu (`promote-candidate`, Bước 1.5/5.5) nâng page đã có, đã chứng minh qua usage. Đường candidate tạo mới từ ý định, chưa có page gốc.
 
 Trình đề xuất:
 ```
