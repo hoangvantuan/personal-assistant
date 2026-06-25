@@ -57,6 +57,11 @@ Ranh giới: pk-analyze đếm số liệu tổng cho dashboard. pk-lint soi chi
 - (b) flows.md: đối chiếu "4 điểm tích hợp" trong `skills/pk-harness/references/flows.md` với bảng cross-call hợp lệ trong `../pk-shared/references/cross-call-rules.md`. Nếu lệch, báo để cập nhật thủ công.
 - Hạng mục này KHÔNG tự fix được bằng grep; yêu cầu người dùng xác nhận và sửa.
 
+**8. AGENTS.md sync** (auto-fix được, xem rebuild-index)
+- Kiểm `AGENTS.md` tại root workspace có block marker `<!-- personal-assistant:start -->` / `<!-- personal-assistant:end -->` không. Thiếu (kể cả thiếu file, vd project khởi tạo trước khi có feature này) → báo `agents-md-missing`.
+- Có block → đối chiếu nội dung giữa marker với format canonical `../pk-shared/references/schemas.md` (mục "AGENTS.md block format"): 4 dòng `@.cockpit/...` đủ và đúng path không, mô tả nhiệm vụ còn khớp không. Lệch → báo `agents-md-drift`.
+- Khác hạng mục 7: cái này tự fix được (block giữa marker là sổ sách dẫn xuất) → backfill/regenerate ở rebuild-index.
+
 ### Output
 
 ```markdown
@@ -68,6 +73,7 @@ Ranh giới: pk-analyze đếm số liệu tổng cho dashboard. pk-lint soi chi
 ### Inbox tồn đọng (N)
 ### Reachability (N) (gồm orphan-action: N)
 ### Knowledge metrics
+### AGENTS.md sync (agents-md-missing / agents-md-drift)
 
 ✅ Không có vấn đề (nếu clean)
 ```
@@ -92,6 +98,7 @@ Sinh lại file dẫn xuất từ nguồn gốc (frontmatter + log), format theo
 2. Quét skills/*.md → sinh skills/registry.md
 3. Quét workflows/*.md → sinh workflows/registry.md
 4. **Tái sinh bảng consumer** trong `../pk-shared/SKILL.md`: grep ngược qua tất cả `skills/pk-*/SKILL.md`, tìm dòng tham chiếu `../pk-shared/references/<file>.md`. Với mỗi reference file, liệt kê danh sách skill đang tham chiếu → cập nhật cột "Skill tiêu thụ chính" trong bảng References của `pk-shared/SKILL.md`. Bảng consumer là bản phái sinh; rebuild-index là cơ chế tái sinh chuẩn.
+5. **Regenerate AGENTS.md block** (backfill `agents-md-missing` / sửa `agents-md-drift`): ghi lại block giữa marker `<!-- personal-assistant:start/end -->` theo format canonical `../pk-shared/references/schemas.md` (mục "AGENTS.md block format"). Idempotent theo quy tắc ghi tại canonical (tạo mới / append / replace giữa marker). Chỉ động vùng trong marker, KHÔNG đụng nội dung khác của AGENTS.md, KHÔNG tạo/sửa CLAUDE.md.
 
 Cột Usage tái dẫn xuất từ log theo công thức ../pk-shared/references/metrics.md mục "Usage count (canonical)". Fallback: log thiếu thì giữ giá trị Usage cũ trong index; không có giá trị cũ thì để 0. (Usage được tính từ log, không phải frontmatter.) Cột Usage là cache-hint; log là SOT (xem ../pk-shared/references/sot-ownership.md).
 

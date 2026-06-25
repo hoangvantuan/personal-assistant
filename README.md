@@ -97,6 +97,13 @@ Bạn cũng có thể gọi trực tiếp từng skill (ví dụ `/pk-capture`, 
 > [!TIP]
 > Lần chạy đầu trong dự án, harness phát hiện chưa có thư mục `.cockpit/` và tự động route tới `pk-init` để khởi tạo workspace.
 
+### Tích hợp AGENTS.md
+
+Khi khởi tạo, `pk-init` ghi một block (bao bởi marker `<!-- personal-assistant:start -->` / `<!-- personal-assistant:end -->`) vào `AGENTS.md` ở root workspace: mô tả nhiệm vụ hệ Cockpit + 4 dòng `@.cockpit/...` auto-load nền tham chiếu (SCHEMA, registry skills/workflows/knowledge). Block là sổ sách dẫn xuất, `pk-lint` (rebuild-index) regenerate/backfill khi thiếu hoặc lệch.
+
+> [!NOTE]
+> Claude Code chỉ expand cú pháp `@` qua chuỗi import từ `CLAUDE.md`. Để nạp tự động, tự thêm một dòng `@AGENTS.md` vào `CLAUDE.md`. Bộ skill cố ý KHÔNG tạo/sửa `CLAUDE.md`; `AGENTS.md` giữ tính agnostic cho mọi agent.
+
 ## Luồng dữ liệu
 
 File [flows reference](skills/pk-harness/references/flows.md) chứa 12 sơ đồ sequence (Mermaid) mô tả mọi luồng tương tác chính: dashboard, tracking, deep review, capture, distill, consult, reflect, lint.

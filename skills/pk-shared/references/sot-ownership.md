@@ -30,6 +30,7 @@ Mỗi field SOT chỉ được sửa bởi skill được chỉ định. pk-trac
 | schema-signals.md (tạo) | `pk-init` (mode new) |
 | schema-signals.md (emit tín hiệu) | `pk-distill`, `pk-consult` |
 | schema-signals.md (move sang "Đã xử lý") | `pk-distill` (phiếu promote-candidate), `pk-lint` (evolve, các tín hiệu đã batch) |
+| AGENTS.md block (giữa marker personal-assistant:start/end) | `pk-init` (tạo lần đầu, mode new), `pk-lint` (rebuild-index regenerate/backfill) |
 
 Ghi chú:
 

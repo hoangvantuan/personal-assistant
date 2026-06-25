@@ -386,6 +386,51 @@ Cột Version, Tags, Cập nhật render từ `version`, `tags`, `updated`.
 |----------|--------|--------------|-------------|---------|------|----------|
 ```
 
+## AGENTS.md block format (canonical)
+
+File `AGENTS.md` tại root workspace (NGOÀI `.cockpit/`). Block hướng dẫn agent bất kỳ về hệ Project Cockpit, bao bởi marker để idempotent. pk-init (mode new) tạo, pk-lint (rebuild-index) regenerate. Cả hai trỏ về đây.
+
+**Marker bắt buộc** (chính xác từng ký tự):
+```
+<!-- personal-assistant:start -->
+... block ...
+<!-- personal-assistant:end -->
+```
+
+**Quy tắc ghi (idempotent)**:
+- File chưa tồn tại → tạo mới chỉ gồm block.
+- File tồn tại, CHƯA có marker → append block (kèm marker) vào cuối, GIỮ NGUYÊN nội dung khác của user.
+- File tồn tại, ĐÃ có marker → thay TOÀN BỘ nội dung GIỮA hai marker bằng bản mới (không đụng ngoài marker).
+
+**Phạm vi nội dung** (mô tả nhiệm vụ tổng thể + auto-load, KHÔNG copy description per-skill — metadata skill đã có):
+
+```markdown
+<!-- personal-assistant:start -->
+## Project Cockpit — hệ skill pk-*
+
+Dự án này dùng **Project Cockpit**: workspace per-project (`.cockpit/`) hợp nhất
+hai việc — **quản lý mục tiêu** (objective, key results, kế hoạch, action, tiến độ,
+metrics) và **quản lý tri thức** (wiki, skills, workflows tái dùng). Nguyên tắc lõi:
+*tri thức phục vụ mục tiêu* — lập kế hoạch thì tra kho tri thức, xong việc thì rút
+bài học ngược vào kho.
+
+Bộ skill `pk-*` vận hành hệ này qua **một điểm vào duy nhất**: gọi `/pk-harness`
+(đọc state `.cockpit/`, route theo ý định), hoặc gọi thẳng skill phù hợp. Mỗi trường
+dữ liệu thuộc đúng một skill sở hữu (SOT ownership) để tránh xung đột ghi.
+
+### Nền tham chiếu (auto-load)
+@.cockpit/SCHEMA.md
+@.cockpit/skills/registry.md
+@.cockpit/workflows/registry.md
+@.cockpit/knowledge/index.md
+<!-- personal-assistant:end -->
+```
+
+**Ghi chú cơ chế `@`**:
+- 4 dòng `@.cockpit/...` chỉ là **mồi định hướng** (file tĩnh ít đổi). KHÔNG thay Snapshot Contract — phần state động (objective/actions/inbox/pinned) vẫn do skill nạp khi chạy.
+- Cú pháp `@` chỉ được Claude Code expand khi file được nạp qua chuỗi import từ `CLAUDE.md` (`@AGENTS.md`). Việc nối `CLAUDE.md → AGENTS.md` thuộc về user, KHÔNG do skill tạo. Agent khác đọc AGENTS.md trực tiếp vẫn thấy path để tự đọc.
+- Bảng route per-skill KHÔNG đưa vào (đã có trong metadata `name`/`description` của từng skill, copy lại tốn token + dễ lệch).
+
 ## Inbox Aging
 
 `staleness_days = today - captured_at` (compute on-the-fly).

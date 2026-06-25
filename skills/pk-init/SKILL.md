@@ -23,6 +23,7 @@ SOT chính: `objective.md` và `tools.md`.
 | tools.md | Bảng tools 4 cột |
 | SCHEMA.md | Chỉ khi mode new (tạo lần đầu) |
 | schema-signals.md | Chỉ khi mode new (tạo lần đầu) |
+| AGENTS.md block | Tạo lần đầu (mode new); regenerate là việc pk-lint |
 
 > Subset của bảng canonical `../pk-shared/references/sot-ownership.md`.
 
@@ -84,11 +85,14 @@ Nếu user skip:
 
 Nội dung `objective.md` sinh theo format canonical tại `../pk-shared/references/schemas.md` (Objective file format).
 
-### Bước 6: Attach hướng dẫn vào CLAUDE.md
+### Bước 6: Attach hướng dẫn vào AGENTS.md
 
-Tìm CLAUDE.md tại root workspace. Idempotent: grep trước, chỉ append nếu chưa có.
+Ghi block hướng dẫn vào `AGENTS.md` tại root workspace theo format canonical `../pk-shared/references/schemas.md` (mục "AGENTS.md block format").
 
-Nội dung: hướng dẫn đọc `.cockpit/` khi bắt đầu session.
+- Bao block bằng marker `<!-- personal-assistant:start -->` / `<!-- personal-assistant:end -->`.
+- Idempotent: chưa có file → tạo mới; có file chưa marker → append; có marker → replace giữa hai marker. (Chi tiết quy tắc ghi: xem canonical.)
+- Nội dung: mô tả nhiệm vụ tổng thể hệ Project Cockpit + 4 dòng `@.cockpit/...` auto-load. KHÔNG copy description per-skill.
+- KHÔNG tạo/sửa CLAUDE.md. Việc nối `CLAUDE.md → AGENTS.md` (để Claude Code expand `@`) thuộc về user.
 
 ## Flow: mode update-objective
 
