@@ -59,7 +59,7 @@ Ranh giới: pk-analyze đếm số liệu tổng cho dashboard. pk-lint soi chi
 
 **8. AGENTS.md sync** (auto-fix được, xem rebuild-index)
 - Kiểm `AGENTS.md` tại root workspace có block marker `<!-- personal-assistant:start -->` / `<!-- personal-assistant:end -->` không. Thiếu (kể cả thiếu file, vd project khởi tạo trước khi có feature này) → báo `agents-md-missing`.
-- Có block → đối chiếu nội dung giữa marker với format canonical `../pk-shared/references/schemas.md` (mục "AGENTS.md block format"): 4 dòng `@.cockpit/...` đủ và đúng path không, mô tả nhiệm vụ còn khớp không. Lệch → báo `agents-md-drift`.
+- Có block → đối chiếu nội dung giữa marker với format canonical `../pk-shared/references/schemas.md` (mục "AGENTS.md block format"): 4 dòng `@.cockpit/...` đủ và đúng path không, có mục `### Cuối phiên` không, mô tả nhiệm vụ còn khớp không. Lệch (kể cả thiếu mục `### Cuối phiên`, vd block tạo trước khi có feature này) → báo `agents-md-drift`.
 - Khác hạng mục 7: cái này tự fix được (block giữa marker là sổ sách dẫn xuất) → backfill/regenerate ở rebuild-index.
 
 ### Output

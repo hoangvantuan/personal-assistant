@@ -423,6 +423,12 @@ dữ liệu thuộc đúng một skill sở hữu (SOT ownership) để tránh x
 @.cockpit/skills/registry.md
 @.cockpit/workflows/registry.md
 @.cockpit/knowledge/index.md
+
+### Cuối phiên
+Khi vừa hoàn tất một mạch công việc đáng kể (xong một task/milestone, hoặc người
+dùng khép lại), trước khi kết thúc câu trả lời hãy tự rà: phiên này có sinh **bài
+học**, **thay đổi tiến độ** (KR/action), hay **ý tưởng rời** đáng giữ không? Nếu có
+→ chủ động đề xuất `/pk-harness` để rút ngược vào kho. Việc vặt thì bỏ qua, không nhắc.
 <!-- personal-assistant:end -->
 ```
 
